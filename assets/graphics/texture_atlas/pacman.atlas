@@ -1,0 +1,65 @@
+pacman.png
+	size: 1024, 64
+	repeat: none
+ghost-run
+	bounds: 390, 20, 128, 32
+pacman-dead
+	bounds: 2, 20, 256, 32
+pacman-dead
+	index: 1
+	bounds: 2, 20, 32, 32
+pacman-dead
+	index: 2
+	bounds: 34, 20, 32, 32
+pacman-dead
+	index: 3
+	bounds: 66, 20, 32, 32
+pacman-dead
+	index: 4
+	bounds: 98, 20, 32, 32
+pacman-dead
+	index: 5
+	bounds: 130, 20, 32, 32
+pacman-dead
+	index: 6
+	bounds: 162, 20, 32, 32
+pacman-dead
+	index: 7
+	bounds: 194, 20, 32, 32
+pacman-dead
+	index: 8
+	bounds: 226, 20, 32, 32
+pacman-run
+	bounds: 260, 20, 128, 32
+pacman-run
+	index: 1
+	bounds: 260, 20, 32, 32
+pacman-run
+	index: 2
+	bounds: 292, 20, 32, 32
+pacman-run
+	index: 3
+	bounds: 324, 20, 32, 32
+pacman-run
+	index: 4
+	bounds: 356, 20, 32, 32
+pacman-map_tileset
+	bounds: 2, 2, 160, 16
+map-left_top
+	bounds: 18, 2, 16, 16
+map-center_top
+	bounds: 34, 2, 16, 16
+map-right_top
+	bounds: 50, 2, 16, 16
+map-left_center
+	bounds: 66, 2, 16, 16
+map-center_center
+	bounds: 82, 2, 16, 16
+map-right_center
+	bounds: 98, 2, 16, 16
+map-left_bottom
+	bounds: 114, 2, 16, 16
+map-center_bottom
+	bounds: 130, 2, 16, 16
+map-right_bottom
+	bounds: 146, 2, 16, 16

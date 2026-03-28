@@ -1,0 +1,14 @@
+{
+  "name": "pacman-run",
+  "frameDuration": 0.25,
+  "playMode": "LOOP",
+  "frameCount": 4
+  "frameWidth": 32
+  "frameHeight": 32
+  "frames": [
+    "pacman-run_1",
+    "pacman-run_2",
+    "pacman-run_3",
+    "pacman-run_4",
+  ]
+}
