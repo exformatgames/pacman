@@ -7,7 +7,7 @@ import com.github.exformatgames.pacman.server.net.netty.NettyService;
 /** Launches the server application. */
 public class ServerLauncher {
 
-    private static float SERVERUPDATETIME = 0.033f;
+    private static long SERVER_UPDATE_TICK = 1_000_000_000 / 60;
 
 
     public static void main(String[] args) {
@@ -28,11 +28,13 @@ public class ServerLauncher {
             long currentTime = System.nanoTime();
             long deltaNanoTime = currentTime - oldTime;
 
-            float deltaTime = 0;//convert nano to float
+            timer += deltaNanoTime;
+            oldTime = currentTime;
 
-            if (deltaTime > SERVERUPDATETIME) {
+            if (timer > SERVER_UPDATE_TICK) {
+                float deltaTime = (float) timer / 1_000_000_000;
                 gameWorld.update(deltaTime);
-                deltaTime = 0;
+                timer = 0;
             }
         }
     }
