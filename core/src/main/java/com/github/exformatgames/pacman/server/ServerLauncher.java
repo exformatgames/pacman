@@ -14,7 +14,7 @@ public class ServerLauncher {
         MapLoader mapLoader = new MapLoader();
         MapData mapData = mapLoader.load("pacman_field.txt");
 
-        GameWorld gameWorld = new GameWorld(mapData);
+        GameWorldV2 gameWorld = new GameWorldV2(mapData);
 
         NetManager netManager = new NetManager();
         netManager.setNetService(new NettyService(netManager));

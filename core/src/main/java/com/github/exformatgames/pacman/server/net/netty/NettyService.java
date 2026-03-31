@@ -9,8 +9,6 @@ import com.github.exformatgames.pacman.server.data.InputAction;
 import com.github.exformatgames.pacman.server.data.MapData;
 import com.github.exformatgames.pacman.server.net.NetManager;
 import com.github.exformatgames.pacman.server.net.NetService;
-import com.github.exformatgames.pacman.server.net.netty.packet.EntityPacket;
-import com.github.exformatgames.pacman.server.net.netty.packet.MapPacket;
 import com.github.exformatgames.pacman.server.net.netty.packet.Packet;
 import com.github.exformatgames.pacman.server.net.netty.packet.PacketRegistry;
 import com.github.exformatgames.pacman.server.net.netty.packet.PacketType;
@@ -21,7 +19,6 @@ import com.github.exformatgames.pacman.server.net.netty.packet.writers.EntityPac
 import com.github.exformatgames.pacman.server.net.netty.packet.writers.InputPacketWriter;
 import com.github.exformatgames.pacman.server.net.netty.packet.writers.MapPacketWriter;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,8 +33,6 @@ public class NettyService implements NetService {
 
     private final PacketRegistry registry = new PacketRegistry();
     private final NettyServer server;
-
-    private final Map<Integer, Integer> activePlayerIDList = new HashMap<>();
 
 
     public NettyService(NetManager netManager) {
@@ -71,34 +66,27 @@ public class NettyService implements NetService {
 
     @Override
     public void onClientConnected(int clientId) {
-        System.out.println("Client connected: " + clientId);
+        netManager.getGameService().addPlayer(clientId);
     }
 
     @Override
     public void onClientDisconnected(int clientId) {
         netManager.getGameService().removePlayer(clientId);
         clients.remove(clientId);
-        System.out.println("Client disconnected: " + clientId);
-        activePlayerIDList.remove(clientId);
     }
 
     @Override
     public void onStartGame(int clientId) {
-        System.out.println("Client start game: " + clientId);
-        netManager.getGameService().addPlayer(clientId);
-        activePlayerIDList.put(clientId, clientId);
+        // можно пока игнор
     }
 
     @Override
     public void onExitGame(int clientId) {
-        System.out.println("Client exit game: " + clientId);
         netManager.getGameService().removePlayer(clientId);
-        activePlayerIDList.remove(clientId);
     }
 
     @Override
     public void onInput(int clientId, InputAction action, boolean pressed) {
-        System.out.println("Client input: " + clientId + " " + action + " " + pressed);
         if (pressed) {
             netManager.getGameService().pressedButton(clientId, action);
         } else {
@@ -108,14 +96,9 @@ public class NettyService implements NetService {
 
     @Override
     public void onRequestMap(int clientId) {
-        System.out.println("Client request map: " + clientId);
         MapData map = netManager.getGameService().getMapData();
 
-        MapPacket packet = new MapPacket();
-        packet.data = map;
-        packet.type = PacketType.RESPONSE_GAME_MAP;
-
-        sendTo(clientId, packet);
+        //sendTo(clientId, new MapPacket(map));
     }
 
     // =========================
@@ -124,37 +107,22 @@ public class NettyService implements NetService {
 
     @Override
     public void createdEntity(EntityData data) {
-        EntityPacket packet = new EntityPacket();
-        packet.data = data;
-        packet.type = PacketType.ENTITY_CREATED;
-
-        broadcast(packet);
+        //broadcast(new EntityCreatePacket(data));
     }
 
     @Override
     public void positionChanged(EntityData data) {
-        EntityPacket packet = new EntityPacket();
-        packet.data = data;
-        packet.type = PacketType.ENTITY_POSITION_CHANGED;
-
-        broadcast(packet);
+        //broadcast(new EntityPositionPacket(data));
     }
 
     @Override
     public void removedEntity(EntityData data) {
-        EntityPacket packet = new EntityPacket();
-        packet.data = data;
-        packet.type = PacketType.ENTITY_REMOVED;
-
-        broadcast(packet);
+        //broadcast(new EntityRemovePacket(data));
     }
 
     @Override
     public void sendMapData(MapData data) {
-        MapPacket packet = new MapPacket();
-        packet.data = data;
-        packet.type = PacketType.RESPONSE_GAME_MAP;
-        broadcast(packet);
+        //broadcast(new MapPacket(data));
     }
 
     // =========================
@@ -169,8 +137,8 @@ public class NettyService implements NetService {
     }
 
     private void broadcast(Packet packet) {
-        for (int clientId : activePlayerIDList.keySet()) {
-            sendTo(clientId, packet);
+        for (Channel ch : clients.values()) {
+            ch.writeAndFlush(packet);
         }
     }
 }

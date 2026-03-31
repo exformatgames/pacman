@@ -5,7 +5,6 @@ package com.github.exformatgames.pacman.server.net.netty;
  */
 
 import com.github.exformatgames.pacman.server.net.NetService;
-import com.github.exformatgames.pacman.server.net.netty.packet.InputPacket;
 import com.github.exformatgames.pacman.server.net.netty.packet.Packet;
 
 import io.netty.channel.ChannelHandlerContext;
@@ -49,8 +48,8 @@ public class ServerHandler extends SimpleChannelInboundHandler<Packet> {
                 break;
 
             case INPUT:
-                InputPacket input = (InputPacket) packet;
-                netService.onInput(clientId, input.action, input.pressed);
+                //InputPacket input = (InputPacket) packet;
+                //netService.onInput(clientId, input.action, input.pressed);
                 break;
 
             case REQUEST_GAME_MAP:
