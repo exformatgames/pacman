@@ -1,6 +1,5 @@
 package com.github.exformatgames.pacman.UI;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.ui.Container;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -12,10 +11,7 @@ import com.badlogic.gdx.utils.Scaling;
 
 public class StartLoadingLayout extends Table {
 
-    private final Skin skin;
-
     public StartLoadingLayout (Skin skin) {
-        this.skin = skin;
         setFillParent(true);
 
         Stack stack = new Stack();
@@ -28,7 +24,7 @@ public class StartLoadingLayout extends Table {
         Label label = new Label("EXFORMAT GAMES", skin, "TitleLabel");
         label.setAlignment(Align.bottom);
 
-        Container<Label> container = new Container<Label>(label);
+        Container<Label> container = new Container<>(label);
         container.align(Align.bottom);
         container.padBottom(20f);
         container.fillX();
@@ -36,9 +32,5 @@ public class StartLoadingLayout extends Table {
         stack.add(container);
 
         add(stack).expand().fill();
-    }
-
-    public void dispose () {
-        skin.dispose();
     }
 }

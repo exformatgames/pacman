@@ -20,12 +20,12 @@ public class PacmanGame extends Game {
 		setScreen(startLoadingScreen);
 	}
 
-	public void showScreen (String name) {
+	public void  showScreen (String name) {
 		Screen newScreen = screenMap.get(name);
 		if (newScreen != null) {
 			setScreen(newScreen);
 
-			log("add screen: " + name);
+			log("show screen: " + name);
 		}
 	}
 

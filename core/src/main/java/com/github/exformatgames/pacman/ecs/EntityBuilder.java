@@ -2,12 +2,12 @@ package com.github.exformatgames.pacman.ecs;
 
 import com.artemis.PooledComponent;
 import com.artemis.World;
-import com.badlogic.gdx.assets.AssetManager;
+import com.github.exformatgames.pacman.Assets.Assets;
 
 public class EntityBuilder {
 
     public static World artemisWorld;
-    public static AssetManager assetManager;
+    public static Assets assets;
 
     protected int entityID;
 

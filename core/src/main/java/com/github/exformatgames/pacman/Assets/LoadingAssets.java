@@ -25,19 +25,14 @@ public class LoadingAssets {
 	public final static String DEFAULT_TEXTURE_ATLAS_PATH = "graphics/texture_atlas/";
 	public final static String PLACEHOLDER_TEXTURE_PATH = "graphics/textures/placeholder.png";
 	public final static String WHITE_TEXTURE_PATH = "graphics/textures/white.png";
-	public final static String DEFAULT_ANIMATIONS_PATH = "graphics/animations/";
+	public final static String DEFAULT_ANIMATIONS_PATH = "animations/";
 	public final static String DEFAULT_I18NBUNDLE_PATH = "i18n/";
 	public final static String DEFAULT_SKIN_PATH = "ui/skin.json";
-
 	public final static Array<String> ANIMATION_PATH_LIST = new Array<>();
 
 	private final AssetManager assetManager;
-	//private String localeString = "en";
 
-	private boolean skinAvailable = false;
-	private boolean bundleAvailable = false;
-
-	public LoadingAssets (AssetManager assetManager) {
+    public LoadingAssets (AssetManager assetManager) {
 		this.assetManager = assetManager;
 	}
 
@@ -48,7 +43,7 @@ public class LoadingAssets {
 		loadSkin();
 		loadMusic();
 		loadSound();
-		
+
 		log("end init loading.");
 	}
 
@@ -78,8 +73,7 @@ public class LoadingAssets {
 		FileHandle[] handle = Gdx.files.internal(DEFAULT_I18NBUNDLE_PATH).list();
 
 		if (handle.length > 0) {
-			bundleAvailable = true;
-			
+
 			assetManager.load(DEFAULT_I18NBUNDLE_PATH + "bundle_ru", I18NBundle.class);
 			assetManager.load(DEFAULT_I18NBUNDLE_PATH + "bundle_en", I18NBundle.class);
 		}
@@ -90,7 +84,6 @@ public class LoadingAssets {
 
 		if (file.length() > 0) {
 			log("loading skin: " + file.path());
-			skinAvailable = true;
 			assetManager.load(DEFAULT_SKIN_PATH, Skin.class);
 		}
 	}
@@ -98,7 +91,7 @@ public class LoadingAssets {
 	private void loadTextureAtlas () {
 		assetManager.load(PLACEHOLDER_TEXTURE_PATH, Texture.class);
 		assetManager.load(WHITE_TEXTURE_PATH, Texture.class);
-		
+
 		FileHandle[] handle = Gdx.files.internal(DEFAULT_TEXTURE_ATLAS_PATH).list();
 
 		for (FileHandle file: handle) {

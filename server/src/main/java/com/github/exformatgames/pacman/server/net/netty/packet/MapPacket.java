@@ -1,0 +1,16 @@
+package com.github.exformatgames.pacman.server.net.netty.packet;
+
+import com.github.exformatgames.pacman.server.data.MapData;
+
+public class MapPacket extends Packet {
+
+    public MapData data;
+	public PacketType type;
+
+
+
+    @Override
+    public PacketType getType() {
+        return type;
+    }
+}

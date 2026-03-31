@@ -1,46 +1,92 @@
 package com.github.exformatgames.pacman.screens;
 
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.Scaling;
+import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.badlogic.gdx.utils.viewport.FillViewport;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.ScalingViewport;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
+import com.github.exformatgames.pacman.UI.GameLayout;
+import com.github.exformatgames.pacman.GameContext;
+import com.github.exformatgames.pacman.GameWorld;
+import com.badlogic.gdx.Gdx;
 
 public class GameScreen implements Screen {
+    public static final String NAME = "GameScreen";
+    private final GameContext context;
+    private final Viewport uiViewport;
+    private final Viewport gameViewport;
+    private final Stage stage;
+    private final GameWorld gameWorld;
 
-	@Override
-	public void show () {
-		// TODO: Implement this method
-	}
 
-	@Override
-	public void render (float p1) {
-		// TODO: Implement this method
-	}
+    public GameScreen (GameContext context) {
+        this.context = context;
 
-	@Override
-	public void resize (int p1, int p2) {
-		// TODO: Implement this method
-	}
+        uiViewport = new ExtendViewport(360, 640);//1280, 720, 10000, 10000);
+        gameViewport = new FitViewport(30, 30);
 
-	@Override
-	public void pause () {
-		// TODO: Implement this method
-	}
+        SpriteBatch batch = new SpriteBatch();
 
-	@Override
-	public void resume () {
-		// TODO: Implement this method
-	}
+        stage = new Stage(uiViewport, batch);
+        gameWorld = new GameWorld(context, gameViewport, batch);
+        GameLayout layout = new GameLayout(context);
 
-	@Override
-	public void hide () {
-		// TODO: Implement this method
-	}
+        stage.addActor(layout);
 
-	@Override
-	public void dispose () {
-		// TODO: Implement this method
-	}
+		layout.show();
+		context.getLocalizationManager().add(layout);
+    }
 
-	
-	public static final String NAME = "MainMenuScreen";
-	
-	
+    @Override
+    public void show () {
+        context.getAudioManager().playGameMusic();
+        context.getNetManager().startGame();
+        context.getNetManager().requestGameMap();
+
+		Gdx.input.setInputProcessor(stage);
+    }
+
+    @Override
+    public void render (float dT) {
+        ScreenUtils.clear(0, 0, 0, 1);
+
+        gameWorld.update(dT);
+
+        uiViewport.apply();
+        stage.act(dT);
+        stage.draw();
+    }
+
+    @Override
+    public void resize (int width, int height) {
+        uiViewport.update(width, height, true);
+        gameViewport.update(width, height, true);
+    }
+
+    @Override
+    public void pause () {
+        context.getAudioManager().stopMusic();
+    }
+
+    @Override
+    public void resume () {
+        context.getAudioManager().playMenuMusic();
+    }
+
+    @Override
+    public void hide () {
+        context.getAudioManager().stopMusic();
+    }
+
+    @Override
+    public void dispose() {
+        gameWorld.dispose();
+        stage.dispose();
+    }
 }

@@ -17,7 +17,7 @@ public class Animations {
 	}
 
 
-	public Animation<TextureRegion> getAnimation (String name) {
+	public Animation<TextureRegion> get(String name) {
 		return animationMap.get(name);
 	}
 
@@ -33,37 +33,22 @@ public class Animations {
 			frameList.add(frame);
 		}
 
-		Animation.PlayMode mode = Animation.PlayMode.NORMAL;
 
 		switch (data.playMode) {
-			case "NORMAL" : {
-					mode = Animation.PlayMode.NORMAL;
-					break;
-				}
-			case "REVERSED" : {
-					mode = Animation.PlayMode.REVERSED;
-					break;
-				}
-			case "LOOP" : {
-					mode = Animation.PlayMode.LOOP;
-					break;
-				}
-			case "LOOP_REVERSED" : {
-					mode = Animation.PlayMode.LOOP_REVERSED;
-					break;
-				}
-			case "LOOP_PINGPONG" : {
-					mode = Animation.PlayMode.LOOP_PINGPONG;
-					break;
-				}
-			case "LOOP_RANDOM" : {
-					mode = Animation.PlayMode.LOOP_RANDOM;
-					break;
-				}
+			case "NORMAL" :
+                return new Animation<>(data.frameDuration, frameList, Animation.PlayMode.NORMAL);
+			case "REVERSED" :
+                return new Animation<>(data.frameDuration, frameList, Animation.PlayMode.REVERSED);
+			case "LOOP" :
+                return new Animation<>(data.frameDuration, frameList, Animation.PlayMode.LOOP);
+			case "LOOP_REVERSED" :
+                return new Animation<>(data.frameDuration, frameList, Animation.PlayMode.LOOP_REVERSED);
+			case "LOOP_PINGPONG" :
+                return new Animation<>(data.frameDuration, frameList, Animation.PlayMode.LOOP_PINGPONG);
+			case "LOOP_RANDOM" :
+                return new Animation<>(data.frameDuration, frameList, Animation.PlayMode.LOOP_RANDOM);
 		}
 
-		Animation<TextureRegion> animation = new Animation<TextureRegion>(data.frameDuration, frameList, mode);
-
-		return animation;
+        return new Animation<>(data.frameDuration, frameList, Animation.PlayMode.NORMAL);
 	}
 }

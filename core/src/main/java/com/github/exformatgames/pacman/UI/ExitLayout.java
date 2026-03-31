@@ -12,21 +12,22 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.I18NBundle;
-import com.github.exformatgames.pacman.app.AppContext;
+import com.github.exformatgames.pacman.GameContext;
+import com.github.exformatgames.pacman.managers.LocalizationManager;
 
-public class ExitLayout extends Table implements Layout, Localizable {
+public class ExitLayout extends Table implements Layout, LocalizationManager.Localizable {
 
 	public static final String NAME = "ExitLayout";
 
-	private final AppContext context;
+	private final GameContext context;
 
-	private Skin skin;
+	private final Skin skin;
 
 	private Label titleLabel;
 	private TextButton exitBtn;
 	private TextButton cancelBtn;
 
-	public ExitLayout (AppContext context) {
+	public ExitLayout (GameContext context) {
 		this.context = context;
 
 		skin = context.getAssets().getSkin();
@@ -83,14 +84,14 @@ public class ExitLayout extends Table implements Layout, Localizable {
 
 		cancelBtn.addListener(new ClickListener() {
 				public void clicked (InputEvent event, float x, float y) {
-					context.getLayoutManager().show(MainMenuLayout.NAME);
+					context.getLayoutManager().show(MenuLayout.NAME);
 				}
 			});
 
 		addListener(new InputListener() {
 				public boolean keyDown (InputEvent event, int keycode) {
 					if (keycode == Input.Keys.BACK && context.getLayoutManager().thisIsActiveLayout(ExitLayout.this)) {
-						context.getLayoutManager().show(MainMenuLayout.NAME);
+						context.getLayoutManager().show(MenuLayout.NAME);
 						return true;
 					}
 					return false;

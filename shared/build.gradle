@@ -1,5 +1,6 @@
 eclipse.project.name = appName + '-shared'
 
 dependencies {
-
+  api "io.netty:netty-all:$nettyVersion"
+  api "net.onedaybeard.artemis:artemis-odb:$artemisOdbVersion"
 }
