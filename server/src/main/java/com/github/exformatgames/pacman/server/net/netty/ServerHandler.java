@@ -42,20 +42,32 @@ public class ServerHandler extends SimpleChannelInboundHandler<Packet> {
 
             case START_GAME:
                 netService.onStartGame(clientId);
+                System.out.println("start. playerID: " + clientId);
                 break;
 
             case EXIT_GAME:
                 netService.onExitGame(clientId);
+                System.out.println("exit. playerID: " + clientId);
                 break;
 
             case INPUT:
                 InputPacket input = (InputPacket) packet;
                 netService.onInput(clientId, input.action, input.pressed);
+
+                System.out.println("input. playerID: " + clientId);
                 break;
 
             case REQUEST_GAME_MAP:
                 netService.onRequestMap(clientId);
+                System.out.println("requestMap. playerID: " + clientId);
                 break;
         }
+    }
+
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+        //super.exceptionCaught(ctx, cause);
+        cause.printStackTrace();
+        ctx.close();
     }
 }

@@ -5,7 +5,6 @@ package com.github.exformatgames.pacman.server.net.netty;
  */
 
 import com.github.exformatgames.pacman.server.data.EntityData;
-import com.github.exformatgames.pacman.server.data.InputAction;
 import com.github.exformatgames.pacman.server.data.MapData;
 import com.github.exformatgames.pacman.server.net.NetManager;
 import com.github.exformatgames.pacman.server.net.NetService;
@@ -21,7 +20,6 @@ import com.github.exformatgames.pacman.server.net.netty.packet.writers.EntityPac
 import com.github.exformatgames.pacman.server.net.netty.packet.writers.InputPacketWriter;
 import com.github.exformatgames.pacman.server.net.netty.packet.writers.MapPacketWriter;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 

@@ -2,7 +2,6 @@ package com.github.exformatgames.pacman.server.net.netty.packet;
 
 
 import com.github.exformatgames.pacman.server.net.netty.packet.writers.PacketWriter;
-
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;

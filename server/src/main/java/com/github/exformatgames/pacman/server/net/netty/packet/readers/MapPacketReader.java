@@ -1,11 +1,9 @@
 package com.github.exformatgames.pacman.server.net.netty.packet.readers;
 
-
 import com.github.exformatgames.pacman.server.data.EntityData;
 import com.github.exformatgames.pacman.server.data.MapData;
 import com.github.exformatgames.pacman.server.net.netty.packet.MapPacket;
 import com.github.exformatgames.pacman.server.net.netty.packet.PacketType;
-
 import io.netty.buffer.ByteBuf;
 
 public class MapPacketReader implements PacketReader<MapPacket> {

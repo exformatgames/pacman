@@ -3,7 +3,6 @@ package com.github.exformatgames.pacman.client.netty.packet;
 public enum PacketType {
     START_GAME,
     EXIT_GAME,
-    INPUT,
 	PRESSED_BUTTON,
 	RELEASED_BUTTON,
     REQUEST_GAME_MAP,

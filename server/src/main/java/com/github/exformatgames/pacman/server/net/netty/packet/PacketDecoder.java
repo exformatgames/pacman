@@ -2,10 +2,10 @@ package com.github.exformatgames.pacman.server.net.netty.packet;
 
 
 import com.github.exformatgames.pacman.server.net.netty.packet.readers.PacketReader;
-import java.util.List;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
+import java.util.List;
 
 public class PacketDecoder extends ByteToMessageDecoder {
 

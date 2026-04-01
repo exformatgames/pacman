@@ -34,7 +34,7 @@ public class GameWorld implements ServerGameEventService.EntityCreatedListener, 
     private final WallEntityBuilder wallEntityBuilder = new WallEntityBuilder();
 
 	//for test reaction, render
-    private final TestGameMap testGameMap;
+    //private final TestGameMap testGameMap;
 
 	private final Viewport viewport;
 
@@ -60,7 +60,7 @@ public class GameWorld implements ServerGameEventService.EntityCreatedListener, 
         context.getClient().getGameMapService().addListener(this);
 
 		//for test reaction, render
-        testGameMap = new TestGameMap(this);
+        //testGameMap = new TestGameMap(this);
     }
 
 

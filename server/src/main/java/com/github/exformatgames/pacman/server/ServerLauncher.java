@@ -20,6 +20,11 @@ public class ServerLauncher {
         netManager.setNetService(new NettyService(netManager));
         netManager.setGameService(gameWorld);
 
+        System.out.println("leeeeeeeeeee..?...");
+
+        netManager.getNetService().startServer();
+
+        System.out.println("start?...");
 
         long timer = 0;
         long oldTime = System.nanoTime();

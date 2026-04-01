@@ -31,47 +31,22 @@ public abstract class Client implements ConnectionStatusListener {
 		}
 	}
 
-
 	public void addConnectionStatusListener (ConnectionStatusListener listener) {
 		statusListenerList.add(listener);
 	}
 
-	public void setGameMapService (GameMapService gameMapService) {
-		this.gameMapService = gameMapService;
-	}
-
-	public GameMapService getGameMapService () {
+    public GameMapService getGameMapService () {
 		return gameMapService;
 	}
-
-	public void setConnectionService (ConnectionService connectionService) {
-		this.connectionService = connectionService;
-	}
-
 	public ConnectionService getConnectionService () {
 		return connectionService;
 	}
-
-	public void setGameSessionService (GameSessionService gameSessionService) {
-		this.gameSessionService = gameSessionService;
-	}
-
 	public GameSessionService getGameSessionService () {
 		return gameSessionService;
 	}
-
-	public void setButtonEventService (ButtonEventService buttonEventService) {
-		this.buttonEventService = buttonEventService;
-	}
-
 	public ButtonEventService getButtonEventService () {
 		return buttonEventService;
 	}
-
-	public void setGameEventService (ServerGameEventService gameEventService) {
-		this.gameEventService = gameEventService;
-	}
-
 	public ServerGameEventService getGameEventService () {
 		return gameEventService;
 	}

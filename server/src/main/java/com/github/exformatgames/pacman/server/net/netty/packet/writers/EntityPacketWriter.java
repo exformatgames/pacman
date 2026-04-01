@@ -1,9 +1,7 @@
 package com.github.exformatgames.pacman.server.net.netty.packet.writers;
 
-
 import com.github.exformatgames.pacman.server.data.EntityData;
 import com.github.exformatgames.pacman.server.net.netty.packet.EntityPacket;
-
 import io.netty.buffer.ByteBuf;
 
 public class EntityPacketWriter implements PacketWriter<EntityPacket> {

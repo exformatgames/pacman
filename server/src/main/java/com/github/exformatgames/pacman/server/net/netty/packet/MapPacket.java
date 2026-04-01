@@ -13,4 +13,12 @@ public class MapPacket extends Packet {
     public PacketType getType() {
         return type;
     }
+
+    @Override
+    public String toString() {
+        return "MapPacket{" +
+            "data=" + data +
+            ", type=" + type +
+            '}';
+    }
 }

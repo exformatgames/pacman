@@ -4,7 +4,6 @@ import com.github.exformatgames.pacman.server.data.EntityData;
 import com.github.exformatgames.pacman.server.data.EntityType;
 import com.github.exformatgames.pacman.server.data.PositionData;
 import com.github.exformatgames.pacman.server.net.netty.packet.EntityPacket;
-
 import io.netty.buffer.ByteBuf;
 
 public class EntityPacketReader implements PacketReader<EntityPacket> {

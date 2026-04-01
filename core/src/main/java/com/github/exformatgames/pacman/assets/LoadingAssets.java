@@ -89,14 +89,17 @@ public class LoadingAssets {
 	private void loadTextureAtlas () {
 		assetManager.load(PLACEHOLDER_TEXTURE_PATH, Texture.class);
 		assetManager.load(WHITE_TEXTURE_PATH, Texture.class);
+        log("loading placeholders..");
 
-		FileHandle[] handle = Gdx.files.internal(DEFAULT_TEXTURE_ATLAS_PATH).list();
+        assetManager.load("graphics/texture_atlas/pacman.atlas", TextureAtlas.class);
+        log("loading atlas..");
 
+        FileHandle[] handle = Gdx.files.internal(DEFAULT_TEXTURE_ATLAS_PATH).list();
 		for (FileHandle file: handle) {
 			if (! file.isDirectory()) {
                 if (file.name().substring(file.name().indexOf('.'), file.name().length()).equals(".atlas")) {
 					log("loading atlas: " + file.path());
-					assetManager.load(file.path(), TextureAtlas.class);
+					//assetManager.load(file.path(), TextureAtlas.class);
                 }
 			}
 		}

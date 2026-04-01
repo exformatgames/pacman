@@ -11,4 +11,12 @@ public class EntityPacket extends Packet {
 	public PacketType getType () {
 		return type;
 	}
+
+    @Override
+    public String toString() {
+        return "EntityPacket{" +
+            "data=" + data +
+            ", type=" + type +
+            '}';
+    }
 }

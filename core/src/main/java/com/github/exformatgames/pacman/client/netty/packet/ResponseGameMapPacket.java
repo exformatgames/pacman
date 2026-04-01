@@ -11,4 +11,11 @@ public class ResponseGameMapPacket extends Packet {
     public PacketType getType() {
         return PacketType.RESPONSE_GAME_MAP;
     }
+
+    @Override
+    public String toString() {
+        return "ResponseGameMapPacket{" +
+            "map=" + map +
+            '}';
+    }
 }

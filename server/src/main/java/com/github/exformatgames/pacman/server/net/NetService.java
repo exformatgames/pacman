@@ -1,7 +1,6 @@
 package com.github.exformatgames.pacman.server.net;
 
 import com.github.exformatgames.pacman.server.data.EntityData;
-import com.github.exformatgames.pacman.server.data.InputAction;
 import com.github.exformatgames.pacman.server.data.MapData;
 
 /**

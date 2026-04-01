@@ -1,9 +1,7 @@
 package com.github.exformatgames.pacman.server.net.netty.packet.writers;
 
-
 import com.github.exformatgames.pacman.server.data.EntityData;
 import com.github.exformatgames.pacman.server.net.netty.packet.MapPacket;
-
 import io.netty.buffer.ByteBuf;
 
 public class MapPacketWriter implements PacketWriter<MapPacket> {

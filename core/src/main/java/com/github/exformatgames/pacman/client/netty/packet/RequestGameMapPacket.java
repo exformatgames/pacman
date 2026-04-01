@@ -6,4 +6,9 @@ public class RequestGameMapPacket extends Packet {
     public PacketType getType() {
         return PacketType.REQUEST_GAME_MAP;
     }
+
+    @Override
+    public String toString() {
+        return "RequestGameMapPacket{}";
+    }
 }

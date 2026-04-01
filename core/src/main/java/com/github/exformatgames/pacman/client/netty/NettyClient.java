@@ -11,9 +11,9 @@ import com.github.exformatgames.pacman.client.netty.packet.PacketRegistry;
 import com.github.exformatgames.pacman.client.netty.packet.PacketType;
 import com.github.exformatgames.pacman.client.netty.packet.readers.EntityPacketReader;
 import com.github.exformatgames.pacman.client.netty.packet.readers.MapPacketReader;
-import com.github.exformatgames.pacman.client.netty.packet.readers.inputPacketReader;
+import com.github.exformatgames.pacman.client.netty.packet.readers.ButtonPressedPacketReader;
 import com.github.exformatgames.pacman.client.netty.packet.writers.EntityPacketWriter;
-import com.github.exformatgames.pacman.client.netty.packet.writers.InputPacketWriter;
+import com.github.exformatgames.pacman.client.netty.packet.writers.ButtonPressedPacketWriter;
 import com.github.exformatgames.pacman.client.netty.packet.writers.MapPacketWriter;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.EventLoopGroup;
@@ -36,7 +36,7 @@ public class NettyClient extends Client {
 		registry = new PacketRegistry();
 		clientHandler = new ClientHandler(this);
 
-		registry.register(PacketType.INPUT, new inputPacketReader(), new InputPacketWriter());
+		registry.register(PacketType.INPUT, new ButtonPressedPacketReader(), new ButtonPressedPacketWriter());
 		registry.register(PacketType.RESPONSE_GAME_MAP, new MapPacketReader(), new MapPacketWriter());
 		registry.register(PacketType.ENTITY_CREATED, new EntityPacketReader(), new EntityPacketWriter());
 		registry.register(PacketType.ENTITY_REMOVED, new EntityPacketReader(), new EntityPacketWriter());

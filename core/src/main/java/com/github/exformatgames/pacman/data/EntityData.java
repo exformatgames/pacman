@@ -6,8 +6,13 @@ public class EntityData {
     public PositionData position;
     public int speed;
 
-    public EntityData() {
-        position = new PositionData();
-        speed = 7;
+    @Override
+    public String toString() {
+        return "EntityData{" +
+            "ID=" + ID +
+            ", type=" + type +
+            ", position=" + position +
+            ", speed=" + speed +
+            '}';
     }
 }

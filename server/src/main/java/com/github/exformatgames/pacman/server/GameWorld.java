@@ -7,7 +7,6 @@ import com.github.exformatgames.pacman.server.ecs.EntityBuilder;
 import com.github.exformatgames.pacman.server.data.EntityData;
 import com.github.exformatgames.pacman.server.data.EntityType;
 import com.github.exformatgames.pacman.server.data.GameField;
-import com.github.exformatgames.pacman.server.data.InputAction;
 import com.github.exformatgames.pacman.server.data.MapData;
 import com.github.exformatgames.pacman.server.data.PositionData;
 import com.github.exformatgames.pacman.server.ecs.GameService;

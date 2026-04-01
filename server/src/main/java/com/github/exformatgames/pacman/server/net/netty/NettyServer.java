@@ -24,6 +24,8 @@ public class NettyServer {
     private final NetService netService;
     private final PacketRegistry registry;
 
+    private EventLoopGroup bossGroup;
+    private EventLoopGroup workerGroup;
 
     public NettyServer(int port, NetService netService, PacketRegistry registry) {
         this.port = port;
@@ -32,8 +34,8 @@ public class NettyServer {
     }
 
     public void start() throws InterruptedException {
-        EventLoopGroup bossGroup = new NioEventLoopGroup(1);
-        EventLoopGroup workerGroup = new NioEventLoopGroup();
+        bossGroup = new NioEventLoopGroup(1);
+        workerGroup = new NioEventLoopGroup();
 
         try {
             ServerBootstrap bootstrap = new ServerBootstrap();
@@ -46,20 +48,32 @@ public class NettyServer {
                     protected void initChannel(SocketChannel ch) {
                         ChannelPipeline pipeline = ch.pipeline();
 
-                        // тут будут твои декодеры/энкодеры
                         pipeline.addLast(new PacketDecoder(registry));
                         pipeline.addLast(new PacketEncoder(registry));
-
                         pipeline.addLast(new ServerHandler(netService));
                     }
                 });
 
-            ChannelFuture future = bootstrap.bind(port).sync();
-            future.channel().closeFuture().sync();
+            //ChannelFuture future = bootstrap.bind(port).sync();
+            ChannelFuture future = bootstrap.bind(port);
+            future.addListener(f -> {
+                if (!f.isSuccess()) {
+                    f.cause().printStackTrace();
+                } else {
+                    System.out.println("server started on port: " + port);
+                }
+            });
+
+            future.channel().closeFuture();
+
 
         } finally {
-            bossGroup.shutdownGracefully();
-            workerGroup.shutdownGracefully();
+
         }
+    }
+
+    public void stop() {
+        bossGroup.shutdownGracefully();
+        workerGroup.shutdownGracefully();
     }
 }

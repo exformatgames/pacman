@@ -229,7 +229,7 @@ public class MenuLayout extends Table implements Layout, LocalizationManager.Loc
     public void onConnected() {
         startGameBtn.setDisabled(false);
         startGameBtn.setTouchable(Touchable.enabled);
-        connectionIndicatorCheckBox.setChecked(false);
+        connectionIndicatorCheckBox.setChecked(true);
     }
 
     @Override

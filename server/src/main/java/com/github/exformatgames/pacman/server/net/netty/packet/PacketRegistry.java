@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class PacketRegistry {
     private final Map<Integer, PacketWriter> writers = new HashMap<>();
-    private final Map<Integer, PacketReader> readers = new HashMap<>();
+    private final Map<Integer,PacketReader> readers = new HashMap<>();
 
     public void register(PacketType type, PacketReader reader, PacketWriter writer) {
         writers.put(type.ordinal(), writer);

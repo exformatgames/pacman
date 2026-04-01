@@ -10,4 +10,11 @@ public class ButtonPressedPacket extends Packet {
 	public PacketType getType () {
 		return PacketType.RELEASED_BUTTON;
 	}
+
+    @Override
+    public String toString() {
+        return "ButtonPressedPacket{" +
+            "action=" + action +
+            '}';
+    }
 }
