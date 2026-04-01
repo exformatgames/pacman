@@ -6,14 +6,14 @@ import com.github.exformatgames.pacman.data.MapData;
 
 public class TestGameMap {
 
-    private MapData data = new MapData();
-    private EntityData pacmanData = new EntityData();
-	private EntityData pacmanData2 = new EntityData();
-	private EntityData pacmanData3 = new EntityData();
+    private final MapData data = new MapData();
+    private final EntityData pacmanData = new EntityData();
+	private final EntityData pacmanData2 = new EntityData();
+	private final EntityData pacmanData3 = new EntityData();
     private EntityData foodData = new EntityData();
 
 
-    private GameWorld world;
+    private final GameWorld world;
 
     public TestGameMap(GameWorld world) {
         this.world = world;
@@ -78,14 +78,13 @@ public class TestGameMap {
             }
         }
 
-        world.responseMap(data);
+        world.onGameMapReceived(data);
     }
 
     private float foodTimer = 0;
     private float pacmanTimer = 0;
 	private float pacmanTimer2 = 0;
 	private float pacmanTimer3 = 0;
-    private float pacmanStepTime = 0.142f;
     private int dir = 1;
     private int dir2 = 1;
     private int dir3 = 1;
@@ -96,6 +95,7 @@ public class TestGameMap {
 		pacmanTimer3 += dT;
         foodTimer += dT;
 
+        float pacmanStepTime = 0.142f;
         if (pacmanTimer > pacmanStepTime) {
             pacmanTimer = 0;
 
@@ -107,7 +107,7 @@ public class TestGameMap {
                 dir = 1;
             }
 
-            world.positionChanged(pacmanData);
+            world.onEntityTransformed(pacmanData);
         }
 
 		if (pacmanTimer2 > 1) {
@@ -121,7 +121,7 @@ public class TestGameMap {
                 dir2 = 1;
             }
 
-            world.positionChanged(pacmanData2);
+            world.onEntityTransformed(pacmanData2);
         }
 
         if (pacmanTimer3 > pacmanStepTime) {
@@ -135,7 +135,7 @@ public class TestGameMap {
                 dir3 = 1;
             }
 
-            world.positionChanged(pacmanData3);
+            world.onEntityTransformed(pacmanData3);
         }
 
         if (foodTimer > 1) {
@@ -148,9 +148,9 @@ public class TestGameMap {
                 foodData.position.y = 5;
                 foodData.ID++;
 
-                world.createdEntity(foodData);
+                world.onEntityCreated(foodData);
             } else {
-                world.removedEntity(foodData);
+                world.onEntityRemoved(foodData);
                 foodData = null;
             }
         }

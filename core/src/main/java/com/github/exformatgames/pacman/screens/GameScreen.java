@@ -1,20 +1,16 @@
 package com.github.exformatgames.pacman.screens;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.ScalingViewport;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.github.exformatgames.pacman.UI.GameLayout;
 import com.github.exformatgames.pacman.GameContext;
 import com.github.exformatgames.pacman.GameWorld;
-import com.badlogic.gdx.Gdx;
+import com.github.exformatgames.pacman.UI.GameLayout;
 
 public class GameScreen implements Screen {
     public static final String NAME = "GameScreen";
@@ -28,7 +24,7 @@ public class GameScreen implements Screen {
     public GameScreen (GameContext context) {
         this.context = context;
 
-        uiViewport = new ExtendViewport(360, 640);//1280, 720, 10000, 10000);
+        uiViewport = new ExtendViewport(360, 640);
         gameViewport = new FitViewport(30, 30);
 
         SpriteBatch batch = new SpriteBatch();
@@ -46,8 +42,8 @@ public class GameScreen implements Screen {
     @Override
     public void show () {
         context.getAudioManager().playGameMusic();
-        context.getNetManager().startGame();
-        context.getNetManager().requestGameMap();
+        context.getClient().getGameSessionService().startGame();
+        context.getClient().getGameMapService().requestMap();
 
 		Gdx.input.setInputProcessor(stage);
     }

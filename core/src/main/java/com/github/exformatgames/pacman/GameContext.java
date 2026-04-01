@@ -1,11 +1,11 @@
 package com.github.exformatgames.pacman;
 
-import com.github.exformatgames.pacman.Assets.Assets;
+import com.github.exformatgames.pacman.assets.Assets;
+import com.github.exformatgames.pacman.client.Client;
 import com.github.exformatgames.pacman.managers.AppDataManager;
 import com.github.exformatgames.pacman.managers.LayoutManager;
 import com.github.exformatgames.pacman.managers.LocalizationManager;
 import com.github.exformatgames.pacman.managers.UIAudioManager;
-import com.github.exformatgames.pacman.managers.NetManager;
 
 public class GameContext {
 	private PacmanGame game;
@@ -13,15 +13,18 @@ public class GameContext {
 	private AppDataManager dataManager;
 	private LocalizationManager localizationManager;
 	private LayoutManager layoutManager;
-    private NetManager netManager;
+    private Client client;
     private Assets assets;
 
-    public NetManager getNetManager() {
-        return netManager;
+    private String host = "localhost";
+    private int port = 8080;
+
+    public Client getClient() {
+        return client;
     }
 
-    public void setNetManager(NetManager netManager) {
-        this.netManager = netManager;
+    public void setClient(Client client) {
+        this.client = client;
     }
 
 	public void setLayoutManager (LayoutManager layoutManager) {
@@ -73,4 +76,21 @@ public class GameContext {
 
 	public AppDataManager getDataManager () {
 		return dataManager;
-	}}
+	}
+
+    public String getHost() {
+        return host;
+    }
+
+    public void setHost(String host) {
+        this.host = host;
+    }
+
+    public int getPort() {
+        return port;
+    }
+
+    public void setPort(int port) {
+        this.port = port;
+    }
+}

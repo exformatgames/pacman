@@ -8,16 +8,16 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.github.exformatgames.pacman.Assets.Assets;
-import com.github.exformatgames.pacman.Assets.LoadingAssets;
+import com.github.exformatgames.pacman.assets.Assets;
+import com.github.exformatgames.pacman.assets.LoadingAssets;
 import com.github.exformatgames.pacman.UI.StartLoadingLayout;
+import com.github.exformatgames.pacman.client.netty.NettyClient;
 import com.github.exformatgames.pacman.managers.AppDataManager;
 import com.github.exformatgames.pacman.managers.data.PreferencesAppDataService;
 import com.github.exformatgames.pacman.PacmanGame;
 import com.github.exformatgames.pacman.GameContext;
 import com.github.exformatgames.pacman.managers.UIAudioManager;
 import com.github.exformatgames.pacman.managers.LocalizationManager;
-import com.github.exformatgames.pacman.managers.NetManager;
 import com.github.exformatgames.pacman.data.AppData;
 import com.github.exformatgames.pacman.managers.LayoutManager;
 
@@ -84,7 +84,7 @@ public class StartLoadingScreen implements Screen {
 			context.setAudioManager(new UIAudioManager(appDataManager.getData(), assets));
 			context.setLocalizationManager(new LocalizationManager(assets));
 			context.setLayoutManager(new LayoutManager());
-            context.setNetManager(new NetManager());
+            context.setClient(new NettyClient());
             context.setGame(game);
 			context.setAssets(assets);
 
@@ -97,6 +97,8 @@ public class StartLoadingScreen implements Screen {
 			game.addScreen(menuScreen, MenuScreen.NAME);
 			game.addScreen(gameScreen, GameScreen.NAME);
 
+			//TODO: for test reaction, render
+			//game.showScreen(GameScreen.NAME);
 			game.showScreen(MenuScreen.NAME);
 		}
 	}

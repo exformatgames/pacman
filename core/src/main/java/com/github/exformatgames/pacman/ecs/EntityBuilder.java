@@ -2,7 +2,7 @@ package com.github.exformatgames.pacman.ecs;
 
 import com.artemis.PooledComponent;
 import com.artemis.World;
-import com.github.exformatgames.pacman.Assets.Assets;
+import com.github.exformatgames.pacman.assets.Assets;
 
 public class EntityBuilder {
 

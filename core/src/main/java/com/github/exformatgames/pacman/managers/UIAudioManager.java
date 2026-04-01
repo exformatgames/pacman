@@ -3,7 +3,7 @@ package com.github.exformatgames.pacman.managers;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.utils.Array;
-import com.github.exformatgames.pacman.Assets.Assets;
+import com.github.exformatgames.pacman.assets.Assets;
 import com.github.exformatgames.pacman.data.AppData;
 
 public class UIAudioManager {

@@ -6,6 +6,8 @@ import com.artemis.WorldConfigurationBuilder;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.IntMap;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.github.exformatgames.pacman.client.service.GameMapService;
+import com.github.exformatgames.pacman.client.service.ServerGameEventService;
 import com.github.exformatgames.pacman.data.EntityData;
 import com.github.exformatgames.pacman.data.EntityType;
 import com.github.exformatgames.pacman.data.MapData;
@@ -19,12 +21,8 @@ import com.github.exformatgames.pacman.ecs.systems.ChangePositionSystem;
 import com.github.exformatgames.pacman.ecs.systems.MoveSystem;
 import com.github.exformatgames.pacman.ecs.systems.SoundSystem;
 import com.github.exformatgames.pacman.ecs.systems.SpriteRenderSystem;
-import com.github.exformatgames.pacman.managers.net.listeners.EntityCreatedListener;
-import com.github.exformatgames.pacman.managers.net.listeners.EntityPositionChangedListener;
-import com.github.exformatgames.pacman.managers.net.listeners.EntityRemovedListener;
-import com.github.exformatgames.pacman.managers.net.listeners.ResponseMapListener;
 
-public class GameWorld implements EntityCreatedListener, EntityRemovedListener, EntityPositionChangedListener, ResponseMapListener {
+public class GameWorld implements ServerGameEventService.EntityCreatedListener, ServerGameEventService.EntityRemovedListener, ServerGameEventService.EntityTransformedListener, GameMapService.GameMapReceivedListener {
 
     private final World world;
 
@@ -35,7 +33,7 @@ public class GameWorld implements EntityCreatedListener, EntityRemovedListener, 
     private final PacmanEntityBuilder pacmanEntityBuilder = new PacmanEntityBuilder();
     private final WallEntityBuilder wallEntityBuilder = new WallEntityBuilder();
 
-
+	//for test reaction, render
     private final TestGameMap testGameMap;
 
 	private final Viewport viewport;
@@ -58,37 +56,37 @@ public class GameWorld implements EntityCreatedListener, EntityRemovedListener, 
         EntityBuilder.artemisWorld = world;
         EntityBuilder.assets = context.getAssets();
 
-        context.getNetManager().addEntityCreatedListener(this);
-        context.getNetManager().addEntityRemovedListener(this);
-        context.getNetManager().addEntityPositionChangedListener(this);
-        context.getNetManager().addResponseMapListener(this);
+        context.getClient().getGameEventService().addEntityCreatedListener(this);
+        context.getClient().getGameMapService().addListener(this);
 
-
+		//for test reaction, render
         testGameMap = new TestGameMap(this);
     }
 
 
     public void update(float dT) {
-        testGameMap.update(dT);
+		//TODO: for test reaction, render
+        //testGameMap.update(dT);
 
         world.setDelta(dT);
         world.process();
     }
 
-    @Override
-    public void responseMap(MapData data) {
-		viewport.setWorldSize(data.width, data.height);
-		viewport.apply(true);
 
-		for (EntityData entityData : data.entityList) {
-			if (entityData != null) {
-				createdEntity(entityData);
-			}
-		}
+    @Override
+    public void onGameMapReceived(MapData data) {
+        viewport.setWorldSize(data.width, data.height);
+        viewport.apply(true);
+
+        for (EntityData entityData : data.entityList) {
+            if (entityData != null) {
+                onEntityCreated(entityData);
+            }
+        }
     }
 
     @Override
-    public void createdEntity(EntityData data) {
+    public void onEntityCreated(EntityData data) {
         switch (data.type) {
             case PACMAN: {
                 int entityID = pacmanEntityBuilder.build(data);
@@ -108,7 +106,7 @@ public class GameWorld implements EntityCreatedListener, EntityRemovedListener, 
     }
 
     @Override
-    public void positionChanged(EntityData data) {
+    public void onEntityTransformed(EntityData data) {
         if (data.type == EntityType.PACMAN) {
             int entityID = pacmanMap.get(data.ID);
             ChangePositionComponent changePositionComponent = EntityBuilder.addComponent(entityID, ChangePositionComponent.class);
@@ -118,7 +116,7 @@ public class GameWorld implements EntityCreatedListener, EntityRemovedListener, 
     }
 
     @Override
-    public void removedEntity(EntityData data) {
+    public void onEntityRemoved(EntityData data) {
         switch (data.type) {
             case PACMAN: {
                 int entityID = pacmanMap.get(data.ID);

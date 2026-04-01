@@ -16,15 +16,14 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.I18NBundle;
 import com.github.exformatgames.pacman.GameContext;
+import com.github.exformatgames.pacman.client.ConnectionStatusListener;
 import com.github.exformatgames.pacman.managers.LocalizationManager;
-import com.github.exformatgames.pacman.managers.net.listeners.ConnectionListener;
-import com.github.exformatgames.pacman.managers.net.listeners.DisconnectionListener;
 import com.github.exformatgames.pacman.data.AppData;
 import com.github.exformatgames.pacman.screens.GameScreen;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 
-public class MenuLayout extends Table implements Layout, LocalizationManager.Localizable, ConnectionListener, DisconnectionListener {
+public class MenuLayout extends Table implements Layout, LocalizationManager.Localizable, ConnectionStatusListener{
 
 	public static final String NAME = "MainMenuLayout";
 
@@ -226,16 +225,15 @@ public class MenuLayout extends Table implements Layout, LocalizationManager.Loc
 			});
 	}
 
-
     @Override
-    public void connected() {
+    public void onConnected() {
         startGameBtn.setDisabled(false);
         startGameBtn.setTouchable(Touchable.enabled);
         connectionIndicatorCheckBox.setChecked(false);
     }
 
     @Override
-    public void disconnected() {
+    public void onDisconnected() {
         startGameBtn.setDisabled(true);
         startGameBtn.setTouchable(Touchable.disabled);
         connectionIndicatorCheckBox.setChecked(false);

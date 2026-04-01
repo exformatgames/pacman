@@ -2,7 +2,7 @@ package com.github.exformatgames.pacman.managers;
 
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.I18NBundle;
-import com.github.exformatgames.pacman.Assets.Assets;
+import com.github.exformatgames.pacman.assets.Assets;
 
 public class LocalizationManager {
 

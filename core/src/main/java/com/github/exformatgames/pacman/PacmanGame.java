@@ -46,6 +46,5 @@ public class PacmanGame extends Game {
 		for (Screen screen : screenMap.values()) {
 			screen.dispose();
 		}
-		//assets.dispose();
 	}
 }

@@ -11,11 +11,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.I18NBundle;
 import com.github.exformatgames.pacman.GameContext;
 import com.github.exformatgames.pacman.managers.LocalizationManager;
-import com.github.exformatgames.pacman.managers.net.InputAction;
+import com.github.exformatgames.pacman.data.InputData;
 import com.github.exformatgames.pacman.screens.MenuScreen;
 
 public class GameLayout extends Table implements Layout, LocalizationManager.Localizable {
@@ -98,7 +97,7 @@ public class GameLayout extends Table implements Layout, LocalizationManager.Loc
         exitBtn.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 context.getAudioManager().stopMusic();
-                context.getNetManager().exitGame();
+                context.getClient().getGameSessionService().exitGame();
                 context.getGame().showScreen(MenuScreen.NAME);
             }
         });
@@ -107,7 +106,7 @@ public class GameLayout extends Table implements Layout, LocalizationManager.Loc
 				public boolean keyDown (InputEvent event, int keycode) {
 					if (keycode == Input.Keys.BACK || keycode == Input.Keys.ESCAPE) {
 						context.getAudioManager().stopMusic();
-						context.getNetManager().exitGame();
+						context.getClient().getGameSessionService().exitGame();
 						context.getGame().showScreen(MenuScreen.NAME);
 						return true;
 					}
@@ -120,27 +119,27 @@ public class GameLayout extends Table implements Layout, LocalizationManager.Loc
             toLeftBtn.addListener(new ClickListener() {
                 @Override
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                    context.getNetManager().sendPressedButton(InputAction.MOVE_LEFT);
+                    context.getClient().getButtonEventService().onButtonPressed(InputData.MOVE_LEFT);
                     return super.touchDown(event, x, y, pointer, button);
                 }
 
                 @Override
                 public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                     super.touchUp(event, x, y, pointer, button);
-                    context.getNetManager().sendReleaseButton(InputAction.MOVE_LEFT);
+                    context.getClient().getButtonEventService().onButtonReleased(InputData.MOVE_LEFT);
                 }
             });
 
             toRightBtn.addListener(new ClickListener() {
                 @Override
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                    context.getNetManager().sendPressedButton(InputAction.MOVE_RIGHT);
+                    context.getClient().getButtonEventService().onButtonPressed(InputData.MOVE_RIGHT);
                     return super.touchDown(event, x, y, pointer, button);
                 }
 
                 @Override
                 public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                    context.getNetManager().sendReleaseButton(InputAction.MOVE_RIGHT);
+                    context.getClient().getButtonEventService().onButtonReleased(InputData.MOVE_RIGHT);
                     super.touchUp(event, x, y, pointer, button);
                 }
             });
@@ -148,13 +147,13 @@ public class GameLayout extends Table implements Layout, LocalizationManager.Loc
             toDownBtn.addListener(new ClickListener() {
                 @Override
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                    context.getNetManager().sendPressedButton(InputAction.MOVE_DOWN);
+                    context.getClient().getButtonEventService().onButtonPressed(InputData.MOVE_DOWN);
                     return super.touchDown(event, x, y, pointer, button);
                 }
 
                 @Override
                 public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                    context.getNetManager().sendPressedButton(InputAction.MOVE_DOWN);
+                    context.getClient().getButtonEventService().onButtonReleased(InputData.MOVE_DOWN);
                     super.touchUp(event, x, y, pointer, button);
                 }
             });
@@ -162,13 +161,13 @@ public class GameLayout extends Table implements Layout, LocalizationManager.Loc
             toUpBtn.addListener(new ClickListener() {
                 @Override
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                    context.getNetManager().sendPressedButton(InputAction.MOVE_UP);
+                    context.getClient().getButtonEventService().onButtonPressed(InputData.MOVE_UP);
                     return super.touchDown(event, x, y, pointer, button);
                 }
 
                 @Override
                 public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                    context.getNetManager().sendPressedButton(InputAction.MOVE_UP);
+                    context.getClient().getButtonEventService().onButtonReleased(InputData.MOVE_UP);
                     super.touchUp(event, x, y, pointer, button);
                 }
             });
