@@ -2,7 +2,7 @@ package com.github.exformatgames.pacman.client.netty.services;
 
 import com.github.exformatgames.pacman.client.netty.NettyClient;
 import com.github.exformatgames.pacman.client.netty.packet.ExitGamePacket;
-import com.github.exformatgames.pacman.client.netty.packet.StartGamePacket;
+import com.github.exformatgames.pacman.client.netty.packet.JoinGamePacket;
 import com.github.exformatgames.pacman.client.service.GameSessionService;
 
 public class GameSession implements GameSessionService {
@@ -14,8 +14,8 @@ public class GameSession implements GameSessionService {
 	}
 
 	@Override
-	public void startGame () {
-		client.getPacketSender().send(new StartGamePacket());
+	public void joinGame() {
+		client.getPacketSender().send(new JoinGamePacket());
 	}
 
 	@Override

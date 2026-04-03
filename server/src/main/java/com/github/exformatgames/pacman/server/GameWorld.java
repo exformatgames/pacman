@@ -3,13 +3,13 @@ package com.github.exformatgames.pacman.server;
 import com.artemis.BaseSystem;
 import com.artemis.World;
 import com.artemis.WorldConfigurationBuilder;
-import com.github.exformatgames.pacman.server.ecs.EntityBuilder;
 import com.github.exformatgames.pacman.server.data.EntityData;
 import com.github.exformatgames.pacman.server.data.EntityType;
 import com.github.exformatgames.pacman.server.data.GameField;
+import com.github.exformatgames.pacman.server.data.InputData;
 import com.github.exformatgames.pacman.server.data.MapData;
 import com.github.exformatgames.pacman.server.data.PositionData;
-import com.github.exformatgames.pacman.server.ecs.GameService;
+import com.github.exformatgames.pacman.server.ecs.EntityBuilder;
 import com.github.exformatgames.pacman.server.ecs.components.input.KeyPressedComponent;
 import com.github.exformatgames.pacman.server.ecs.components.input.KeyReleasedComponent;
 import com.github.exformatgames.pacman.server.ecs.entities.FoodEntityBuilder;
@@ -20,20 +20,19 @@ import com.github.exformatgames.pacman.server.ecs.systems.MoveSystem;
 import com.github.exformatgames.pacman.server.ecs.systems.PressedKeySystem;
 import com.github.exformatgames.pacman.server.ecs.systems.ReleasedKeySystem;
 import com.github.exformatgames.pacman.server.ecs.utils.PacmanSpawnPoint;
-import com.github.exformatgames.pacman.server.net.NetManager;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import com.github.exformatgames.pacman.server.netty.NettyServer;
+import com.github.exformatgames.pacman.server.netty.packet.ResponseGameMapPacket;
 
-public class GameWorld implements GameService {
-    private NetManager netManager;
-
+public class GameWorld {
     private final MapData mapData;
     private final GameField field;
     private final World world;
+	private NettyServer server;
 
     private final Map<Integer, Integer> entityIDMap = new HashMap<>();
     private final Map<Integer, EntityData> entityMap = new HashMap<>();
@@ -47,6 +46,7 @@ public class GameWorld implements GameService {
 
     public GameWorld(MapData mapData) {
         this.mapData = mapData;
+		this.server = server;
 
         field = new GameField(mapData);
 
@@ -71,7 +71,6 @@ public class GameWorld implements GameService {
         }
     }
 
-
     public void update(float dT) {
         // ===== выполняем все команды от внешних потоков =====
         while (!commandQueue.isEmpty()) {
@@ -85,8 +84,7 @@ public class GameWorld implements GameService {
         world.process();
     }
 
-    @Override
-    public void pressedButton(final int playerID, final InputAction action) {
+    public void pressedButton(final int playerID, final InputData action) {
         commandQueue.add(new Runnable() {
             @Override
             public void run() {
@@ -98,8 +96,7 @@ public class GameWorld implements GameService {
         });
     }
 
-    @Override
-    public void releaseButton(final int playerID, final InputAction action) {
+    public void releaseButton(final int playerID, final InputData action) {
         commandQueue.add(new Runnable() {
             @Override
             public void run() {
@@ -112,7 +109,6 @@ public class GameWorld implements GameService {
     }
 
 	//pacmanID = playerID
-    @Override
     public void addPlayer(final int ID) {
         commandQueue.add(new Runnable() {
             @Override
@@ -136,7 +132,6 @@ public class GameWorld implements GameService {
         });
     }
 
-    @Override
     public void removePlayer(final int ID) {
         commandQueue.add(new Runnable() {
             @Override
@@ -157,22 +152,34 @@ public class GameWorld implements GameService {
         });
     }
 
-	@Override
     public void createdEntity (EntityData data) {
-        netManager.getNetService().createdEntity(data);
+        //netManager.getNetService().createdEntity(data);
     }
 
-	@Override
     public void positionChanged (EntityData data) {
-        netManager.getNetService().positionChanged(data);
+        //netManager.getNetService().positionChanged(data);
     }
 
-	@Override
     public void removedEntity (EntityData data) {
-        netManager.getNetService().removedEntity(data);
+        //netManager.getNetService().removedEntity(data);
     }
 
-	@Override
+	//я долго думал как его обозвать чтоб геймворлд был вне сетевого контекста... нуну..
+	public void requestGameMap(final int clientID) {
+		commandQueue.add(new Runnable() {
+				@Override
+				public void run() {
+					MapData mapData = getMapData();
+					//ой ля..... гуано крокодила пахнет краше...
+					//сделаем вид что сервер прлностью абстрагироаан от игры, как и игра от сервера)))
+					//это ж временное решение, я верну нетменеджер
+					ResponseGameMapPacket packet = new ResponseGameMapPacket();
+					packet.map = mapData;
+					server.sendTo(clientID, packet);
+				}
+			});
+	}
+
 	public MapData getMapData () {
 		EntityData[] map = new EntityData[mapData.width * mapData.height];
 		int i = 0;
@@ -188,5 +195,13 @@ public class GameWorld implements GameService {
 		mapData.entityList = map;
 
 		return mapData;
+	}
+
+	public void setServer (NettyServer server) {
+		this.server = server;
+	}
+
+	public NettyServer getServer () {
+		return server;
 	}
 }

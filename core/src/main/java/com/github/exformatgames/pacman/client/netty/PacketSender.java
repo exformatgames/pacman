@@ -13,8 +13,9 @@ public class PacketSender {
 	}
 
 	public void send (Packet packet) {
-		Channel channel = ((Connection)client.getConnectionService()).getChannel();
-        if (channel != null && channel.isActive()) {
+        System.out.println("send packet: " + packet.toString());
+        Channel channel = ((Connection)client.getConnectionService()).getChannel();
+        if (channel != null) {// && channel.isActive()) {
             channel.writeAndFlush(packet);
 
             System.out.println("send packet: " + packet.toString());

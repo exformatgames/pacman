@@ -1,30 +1,25 @@
 package com.github.exformatgames.pacman.server;
 
 import com.github.exformatgames.pacman.server.data.MapData;
-import com.github.exformatgames.pacman.server.net.NetManager;
-import com.github.exformatgames.pacman.server.net.netty.NettyService;
+import com.github.exformatgames.pacman.server.netty.NettyServer;
 
-/** Launches the server application. */
 public class ServerLauncher {
 
     private static long SERVER_UPDATE_TICK = 1_000_000_000 / 60;
 
 
-    public static void main(String[] args) {
+    public static void main (String[] args) {
         MapLoader mapLoader = new MapLoader();
         MapData mapData = mapLoader.load("pacman_field.txt");
 
-        GameWorld gameWorld = new GameWorld(mapData);
+		GameWorld gameWorld = new GameWorld(mapData);
+		NettyServer server = new NettyServer(8080, gameWorld);
 
-        NetManager netManager = new NetManager();
-        netManager.setNetService(new NettyService(netManager));
-        netManager.setGameService(gameWorld);
+		gameWorld.setServer(server);
 
-        System.out.println("leeeeeeeeeee..?...");
 
-        netManager.getNetService().startServer();
-
-        System.out.println("start?...");
+		server.start();
+        System.out.println("start.");
 
         long timer = 0;
         long oldTime = System.nanoTime();

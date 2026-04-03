@@ -42,7 +42,6 @@ public class GameScreen implements Screen {
     @Override
     public void show () {
         context.getAudioManager().playGameMusic();
-        context.getClient().getGameSessionService().startGame();
         context.getClient().getGameMapService().requestMap();
 
 		Gdx.input.setInputProcessor(stage);

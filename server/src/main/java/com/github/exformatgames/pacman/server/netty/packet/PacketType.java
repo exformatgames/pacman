@@ -1,4 +1,4 @@
-package com.github.exformatgames.pacman.client.netty.packet;
+package com.github.exformatgames.pacman.server.netty.packet;
 
 public enum PacketType {
     JOIN_GAME,
