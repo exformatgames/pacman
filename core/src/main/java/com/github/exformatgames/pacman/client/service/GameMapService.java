@@ -1,25 +1,37 @@
 package com.github.exformatgames.pacman.client.service;
 
-import com.github.exformatgames.pacman.data.MapData;
 import com.badlogic.gdx.utils.Array;
+import com.github.exformatgames.pacman.client.Client;
+import com.github.exformatgames.pacman.data.MapData;
 
 public abstract class GameMapService {
 
 	private final Array<GameMapReceivedListener> listenerList = new Array<>();
 
-    public abstract void requestMap();
+	protected final Client client;
 
-    public void onGameMapReceived(MapData mapData) {
-		for (GameMapReceivedListener l : listenerList) {
-			l.onGameMapReceived(mapData);
-		}
+	public GameMapService (Client client) {
+		this.client = client;
 	}
 
-	public void addListener(GameMapReceivedListener listener) {
+    public abstract void requestMap ();
+
+    public void onGameMapReceived (final MapData mapData) {
+		client.getEventQueue().add(new Runnable() {
+				@Override
+				public void run () {
+					for (GameMapReceivedListener l : listenerList) {
+						l.onGameMapReceived(mapData);
+					}
+				}
+			});
+	}
+
+	public void addListener (GameMapReceivedListener listener) {
 		listenerList.add(listener);
 	}
 
 	public interface GameMapReceivedListener {
-		void onGameMapReceived(MapData mapData);
+		void onGameMapReceived (MapData mapData);
 	}
 }

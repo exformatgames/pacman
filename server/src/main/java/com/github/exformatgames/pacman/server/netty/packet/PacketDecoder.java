@@ -1,6 +1,5 @@
 package com.github.exformatgames.pacman.server.netty.packet;
 
-
 import com.github.exformatgames.pacman.server.netty.packet.readers.PacketReader;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
@@ -16,26 +15,28 @@ public class PacketDecoder extends ByteToMessageDecoder {
     }
 
     @Override
-    protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) {
+	protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) {
 
-        if (in.readableBytes() < 4) return;
+        System.out.println("message!!");
 
-        in.markReaderIndex();
-        int length = in.readInt();
+		if (in.readableBytes() < 4) return;
 
-        if (in.readableBytes() < length) {
-            in.resetReaderIndex();
-            return;
-        }
+		int typeId = in.readInt();
 
-        int typeId = in.readInt();
-        PacketType type = PacketType.values()[typeId];
+		if (typeId < 0 || typeId >= PacketType.values().length) {
+			System.out.println("INVALID TYPE: " + typeId);
+			return;
+		}
 
-        PacketReader reader = registry.getReader(type);
-        Packet packet = reader.read(in);
+		PacketType type = PacketType.values()[typeId];
 
-        if (packet != null) {
-            out.add(packet);
-        }
-    }
+		PacketReader reader = registry.getReader(type);
+		Packet packet = reader.read(in);
+
+		if (packet != null) {
+			out.add(packet);
+		}
+	}
 }
+
+

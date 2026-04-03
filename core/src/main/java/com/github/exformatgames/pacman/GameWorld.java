@@ -21,6 +21,7 @@ import com.github.exformatgames.pacman.ecs.systems.ChangePositionSystem;
 import com.github.exformatgames.pacman.ecs.systems.MoveSystem;
 import com.github.exformatgames.pacman.ecs.systems.SoundSystem;
 import com.github.exformatgames.pacman.ecs.systems.SpriteRenderSystem;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class GameWorld implements ServerGameEventService.EntityCreatedListener, ServerGameEventService.EntityRemovedListener, ServerGameEventService.EntityTransformedListener, GameMapService.GameMapReceivedListener {
 
@@ -33,6 +34,8 @@ public class GameWorld implements ServerGameEventService.EntityCreatedListener, 
     private final PacmanEntityBuilder pacmanEntityBuilder = new PacmanEntityBuilder();
     private final WallEntityBuilder wallEntityBuilder = new WallEntityBuilder();
 
+	private final ConcurrentLinkedQueue<Runnable> eventQueue = new ConcurrentLinkedQueue<>();
+	
 	//for test reaction, render
     //private final TestGameMap testGameMap;
 
@@ -56,6 +59,8 @@ public class GameWorld implements ServerGameEventService.EntityCreatedListener, 
         EntityBuilder.artemisWorld = world;
         EntityBuilder.assets = context.getAssets();
 
+		
+		context.getClient().setEventQueue(eventQueue);
         context.getClient().getGameEventService().addEntityCreatedListener(this);
         context.getClient().getGameMapService().addListener(this);
 
@@ -68,6 +73,12 @@ public class GameWorld implements ServerGameEventService.EntityCreatedListener, 
 		//TODO: for test reaction, render
         //testGameMap.update(dT);
 
+		//вот умеет иногда гпт прям красиво написать. имхо
+		Runnable task;
+		while ((task = eventQueue.poll()) != null) {
+			task.run();
+		}
+		
         world.setDelta(dT);
         world.process();
     }

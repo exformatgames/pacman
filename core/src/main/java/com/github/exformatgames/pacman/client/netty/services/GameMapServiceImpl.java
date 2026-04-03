@@ -6,14 +6,12 @@ import com.github.exformatgames.pacman.client.netty.packet.RequestGameMapPacket;
 
 public class GameMapServiceImpl extends GameMapService {
 
-	private final NettyClient client;
-
 	public GameMapServiceImpl (NettyClient client) {
-		this.client = client;
+		super(client);
 	}
 
 	@Override
 	public void requestMap () {
-		client.getPacketSender().send(new RequestGameMapPacket());
+		((NettyClient)client).getPacketSender().send(new RequestGameMapPacket());
 	}
 }

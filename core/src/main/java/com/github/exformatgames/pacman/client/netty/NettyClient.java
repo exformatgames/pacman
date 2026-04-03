@@ -13,13 +13,11 @@ import com.github.exformatgames.pacman.client.netty.packet.writers.ButtonPressed
 import com.github.exformatgames.pacman.client.netty.packet.writers.ButtonReleasedPacketWriter;
 import com.github.exformatgames.pacman.client.netty.packet.writers.EntityPacketWriter;
 import com.github.exformatgames.pacman.client.netty.packet.writers.MapPacketWriter;
-import com.github.exformatgames.pacman.client.netty.services.ButtonEventServiceImpl;
-import com.github.exformatgames.pacman.client.netty.services.Connection;
-import com.github.exformatgames.pacman.client.netty.services.GameMapServiceImpl;
-import com.github.exformatgames.pacman.client.netty.services.GameSession;
+import com.github.exformatgames.pacman.client.netty.services.*;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
+import com.github.exformatgames.pacman.client.service.ServerGameEventService;
 
 public class NettyClient extends Client {
 
@@ -46,6 +44,9 @@ public class NettyClient extends Client {
 		gameSessionService = new GameSession(this);
 		gameMapService = new GameMapServiceImpl(this);
 		buttonEventService = new ButtonEventServiceImpl(this);
+		gameEventService = new ServerGameEventService(this);
+		testService  = new Test(this);
+
 
 		packetSender = new PacketSender(this);
 	}
@@ -84,8 +85,7 @@ public class NettyClient extends Client {
 		registry.register(PacketType.RESPONSE_GAME_MAP, new MapPacketReader(), new MapPacketWriter());
 		registry.register(PacketType.ENTITY_CREATED, new EntityPacketReader(), new EntityPacketWriter());
 		registry.register(PacketType.ENTITY_REMOVED, new EntityPacketReader(), new EntityPacketWriter());
-		registry.register(PacketType.ENTITY_POSITION_CHANGED, new EntityPacketReader(), new EntityPacketWriter());
-
+		registry.register(PacketType.ENTITY_TRANSFORMED, new EntityPacketReader(), new EntityPacketWriter());
 	}
 
 	@Override

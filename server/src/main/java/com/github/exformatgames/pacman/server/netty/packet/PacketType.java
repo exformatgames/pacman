@@ -1,6 +1,8 @@
 package com.github.exformatgames.pacman.server.netty.packet;
 
 public enum PacketType {
+	PING,
+	PONG,
     JOIN_GAME,
     EXIT_GAME,
 	PRESSED_BUTTON,
@@ -9,5 +11,5 @@ public enum PacketType {
     RESPONSE_GAME_MAP,
     ENTITY_CREATED,
     ENTITY_REMOVED,
-    ENTITY_POSITION_CHANGED,
+    ENTITY_TRANSFORMED,
 }

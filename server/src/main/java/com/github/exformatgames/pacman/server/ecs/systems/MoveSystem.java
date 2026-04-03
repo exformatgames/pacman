@@ -42,6 +42,6 @@ public class MoveSystem extends IteratingSystem {
 		
 		moveMapper.remove(entityID);
 
-		world.positionChanged(entityData);
+		world.getEntityEventHandler().transformedEntity(entityData);
 	}
 }

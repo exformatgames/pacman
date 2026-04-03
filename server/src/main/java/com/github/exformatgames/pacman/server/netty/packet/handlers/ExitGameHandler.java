@@ -18,6 +18,6 @@ public class ExitGameHandler implements PacketHandler<ExitGamePacket> {
 
 	@Override
 	public void handle (Channel channel, ExitGamePacket packet) {
-		gameWorld.removePlayer(server.getClientID(channel));
+		gameWorld.getPlayerHandler().removePlayer(server.getClientID(channel));
 	}
 }

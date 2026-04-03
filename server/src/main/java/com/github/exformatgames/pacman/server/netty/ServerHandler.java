@@ -21,13 +21,15 @@ public class ServerHandler extends SimpleChannelInboundHandler<Packet> {
 	//была мысль и сюда хендлеры сделать.. но чет перебор мне кажется..
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) {
+        System.out.println("channelActive");
 		service.addClient(ctx.channel());
 
 	}
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) {
-		service.removeClient(ctx.channel());
+        System.out.println("channelInactive");
+        service.removeClient(ctx.channel());
 	}
 
     @Override

@@ -14,16 +14,8 @@ import com.github.exformatgames.pacman.UI.ExitLayout;
 public class MenuScreen implements Screen {
 
 	public static final String NAME = "MenuScreen";
-
 	private final GameContext context;
-
 	private final Stage stage;
-
-    private float reconnectTimer = 0;
-    private float reconnectTimeTick = 5;
-    private int reconnectCounter = 5;
-    private int reconnectMax = 10;
-
 
     public MenuScreen(GameContext context) {
 		this.context = context;
@@ -47,16 +39,7 @@ public class MenuScreen implements Screen {
 
 	@Override
 	public void render (float dT) {
-        reconnectTimer += dT;
-        if (reconnectTimer > reconnectTimeTick && ! context.getClient().getConnectionService().isConnected()) {
-            reconnectTimer = 0;
-            reconnectCounter++;
-            if (reconnectCounter > reconnectMax) {
-                context.getClient().getConnectionService().connect(context.getHost(), context.getPort());
-            }
-        }
-
-
+		
 		ScreenUtils.clear(Color.GRAY);
 		stage.act(dT);
 		stage.draw();

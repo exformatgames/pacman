@@ -18,6 +18,6 @@ public class ButtonReleasedHandler implements PacketHandler<ButtonReleasedPacket
 
 	@Override
 	public void handle (Channel channel, ButtonReleasedPacket packet) {
-		gameWorld.releaseButton(server.getClientID(channel), packet.action);
+		gameWorld.getInputHandler().releaseButton(server.getClientID(channel), packet.action);
 	}
 }

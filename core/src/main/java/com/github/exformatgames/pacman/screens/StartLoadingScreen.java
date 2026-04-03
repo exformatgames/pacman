@@ -90,6 +90,7 @@ public class StartLoadingScreen implements Screen {
 
 			MenuScreen menuScreen = new MenuScreen(context);
 			GameScreen gameScreen = new GameScreen(context);
+			NetTestScreen netTestScreen = new NetTestScreen(context);
 
 			AppData data = appDataManager.getData();
 			context.getLocalizationManager().change(data.lang);
@@ -99,7 +100,8 @@ public class StartLoadingScreen implements Screen {
 
 			//TODO: for test reaction, render
 			//game.showScreen(GameScreen.NAME);
-			game.showScreen(MenuScreen.NAME);
+			//game.showScreen(MenuScreen.NAME);
+			game.setScreen(netTestScreen);
 		}
 	}
 

@@ -1,0 +1,24 @@
+package com.github.exformatgames.pacman.server;
+
+import com.github.exformatgames.pacman.server.data.MapData;
+import com.github.exformatgames.pacman.server.netty.packet.ResponseGameMapPacket;
+
+public class MapDataHandler {
+	
+	private final GameWorld gameWorld;
+
+	public MapDataHandler (GameWorld gameWorld) {
+		this.gameWorld = gameWorld;
+	}
+	
+	public void requestGameMap(final int clientID) {
+		gameWorld.getCommandQueue().add(new Runnable() {
+				@Override
+				public void run() {
+					MapData mapData = gameWorld.buildMapData();
+					//хм.. идем из нетсервиса чтоб обратно в него вернуться.. пусть и через очередь...
+					gameWorld.getNetService().getSendService().sendMapData(clientID, mapData);
+				}
+			});
+	}
+}

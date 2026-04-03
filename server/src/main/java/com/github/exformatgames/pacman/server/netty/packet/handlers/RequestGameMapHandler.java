@@ -18,6 +18,6 @@ public class RequestGameMapHandler implements PacketHandler<RequestGameMapPacket
 
 	@Override
 	public void handle (Channel channel, RequestGameMapPacket packet) {
-		gameWorld.requestGameMap(server.getClientID(channel));
+		gameWorld.getMapDataHandler().requestGameMap(server.getClientID(channel));
 	}
 }

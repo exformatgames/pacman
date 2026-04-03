@@ -3,6 +3,8 @@ package com.github.exformatgames.pacman.client.netty;
 import com.github.exformatgames.pacman.client.netty.services.Connection;
 import com.github.exformatgames.pacman.client.netty.packet.Packet;
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelFutureListener;
 
 public class PacketSender {
 
@@ -15,10 +17,10 @@ public class PacketSender {
 	public void send (Packet packet) {
         System.out.println("send packet: " + packet.toString());
         Channel channel = ((Connection)client.getConnectionService()).getChannel();
-        if (channel != null) {// && channel.isActive()) {
+        if ((channel != null) && channel.isActive()) {
             channel.writeAndFlush(packet);
 
-            System.out.println("send packet: " + packet.toString());
+            System.out.println("end send packet: " + packet.toString());
         }
 	}
 }

@@ -1,10 +1,16 @@
 package com.github.exformatgames.pacman.server.netty;
 
 import com.github.exformatgames.pacman.server.GameWorld;
-import com.github.exformatgames.pacman.server.netty.packet.*;
-import com.github.exformatgames.pacman.server.netty.packet.handlers.*;
-import com.github.exformatgames.pacman.server.netty.packet.*;
-import com.github.exformatgames.pacman.server.netty.packet.handlers.*;
+import com.github.exformatgames.pacman.server.netty.packet.Packet;
+import com.github.exformatgames.pacman.server.netty.packet.PacketDecoder;
+import com.github.exformatgames.pacman.server.netty.packet.PacketEncoder;
+import com.github.exformatgames.pacman.server.netty.packet.PacketRegistry;
+import com.github.exformatgames.pacman.server.netty.packet.PacketType;
+import com.github.exformatgames.pacman.server.netty.packet.handlers.ButtonPressedHandler;
+import com.github.exformatgames.pacman.server.netty.packet.handlers.ButtonReleasedHandler;
+import com.github.exformatgames.pacman.server.netty.packet.handlers.ExitGameHandler;
+import com.github.exformatgames.pacman.server.netty.packet.handlers.JoinGameHandler;
+import com.github.exformatgames.pacman.server.netty.packet.handlers.RequestGameMapHandler;
 import com.github.exformatgames.pacman.server.netty.packet.readers.ButtonPressedPacketReader;
 import com.github.exformatgames.pacman.server.netty.packet.readers.ButtonReleasedPacketReader;
 import com.github.exformatgames.pacman.server.netty.packet.readers.EntityPacketReader;
@@ -14,13 +20,19 @@ import com.github.exformatgames.pacman.server.netty.packet.writers.ButtonRelease
 import com.github.exformatgames.pacman.server.netty.packet.writers.EntityPacketWriter;
 import com.github.exformatgames.pacman.server.netty.packet.writers.MapPacketWriter;
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.*;
+import io.netty.channel.Channel;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelInitializer;
+import io.netty.channel.ChannelPipeline;
+import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
+import io.netty.handler.logging.LogLevel;
+import io.netty.handler.logging.LoggingHandler;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,6 +40,8 @@ public class NettyServer {
 
     private final int port;
 
+	//ох.. по хорошему нужно чтоб игра подписалась на события в нетсервисе и не было этой жесткой связи..
+	//но мне бы для начала просто запустить этот бедлам..
 	private final GameWorld gameWorld;
 
     private final PacketRegistry registry = new PacketRegistry();
@@ -64,9 +78,11 @@ public class NettyServer {
                 protected void initChannel (SocketChannel ch) {
                     ChannelPipeline pipeline = ch.pipeline();
 
-                    pipeline.addLast(new PacketDecoder(registry));
-                    pipeline.addLast(new PacketEncoder(registry));
-                    pipeline.addLast(serverHandler);
+					pipeline.addLast(new LoggingHandler(LogLevel.DEBUG));
+					pipeline.addLast(new LengthFieldBasedFrameDecoder(65536, 0, 4, 0, 4));
+					pipeline.addLast(new PacketDecoder(registry));
+					pipeline.addLast(new PacketEncoder(registry));
+					pipeline.addLast(new ServerHandler(NettyServer.this));
                 }
             });
 
@@ -111,10 +127,11 @@ public class NettyServer {
         registry.register(PacketType.RESPONSE_GAME_MAP, new MapPacketReader(), new MapPacketWriter());
         registry.register(PacketType.ENTITY_CREATED, new EntityPacketReader(), new EntityPacketWriter());
         registry.register(PacketType.ENTITY_REMOVED, new EntityPacketReader(), new EntityPacketWriter());
-        registry.register(PacketType.ENTITY_POSITION_CHANGED, new EntityPacketReader(), new EntityPacketWriter());
+        registry.register(PacketType.ENTITY_TRANSFORMED, new EntityPacketReader(), new EntityPacketWriter());
 	}
 
 	private void registerHandlers () {
+		//вот прям больно...
 		serverHandler.addPacketHandler(PacketType.PRESSED_BUTTON, new ButtonPressedHandler(this, gameWorld));
 		serverHandler.addPacketHandler(PacketType.RELEASED_BUTTON, new ButtonReleasedHandler(this, gameWorld));
 		serverHandler.addPacketHandler(PacketType.JOIN_GAME, new JoinGameHandler(this, gameWorld));
@@ -140,5 +157,7 @@ public class NettyServer {
 
 		channelMap.remove(channel);
 		clientMap.remove(ID);
+
+        System.out.println("client disconnected: " + ID);
 	}
 }

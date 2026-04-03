@@ -27,6 +27,10 @@ public class ClientHandler extends SimpleChannelInboundHandler<Packet> {
     @Override
     protected void channelRead0 (ChannelHandlerContext ctx, Packet msg) {
         switch (msg.getType()) {
+            case PONG : {
+                System.out.println("PONG");
+                break;
+            }
             case RESPONSE_GAME_MAP:
                 MapPacket mapPacket = (MapPacket) msg;
 				client.getGameMapService().onGameMapReceived(mapPacket.data);
@@ -41,7 +45,7 @@ public class ClientHandler extends SimpleChannelInboundHandler<Packet> {
 					client.getGameEventService().onEntityRemoved(entityPacket.data);
 					break;
 				}
-            case ENTITY_POSITION_CHANGED : {
+            case ENTITY_TRANSFORMED : {
 					EntityPacket entityPacket = (EntityPacket) msg;
 					client.getGameEventService().onEntityTransformed(entityPacket.data);
 					break;

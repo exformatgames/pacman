@@ -19,6 +19,6 @@ public class ButtonPressedHandler implements PacketHandler<ButtonPressedPacket> 
 
 	@Override
 	public void handle (Channel channel, ButtonPressedPacket packet) {
-		gameWorld.pressedButton(server.getClientID(channel), packet.action);
+		gameWorld.getInputHandler().pressedButton(server.getClientID(channel), packet.action);
 	}
 }
