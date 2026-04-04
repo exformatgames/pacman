@@ -1,7 +1,7 @@
 package com.github.exformatgames.pacman;
 
 import com.github.exformatgames.pacman.assets.Assets;
-import com.github.exformatgames.pacman.client.Client;
+import com.github.exformatgames.pacman.net.Client;
 import com.github.exformatgames.pacman.managers.AppDataManager;
 import com.github.exformatgames.pacman.managers.LayoutManager;
 import com.github.exformatgames.pacman.managers.LocalizationManager;

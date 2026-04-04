@@ -4,8 +4,8 @@ import com.artemis.Aspect;
 import com.artemis.ComponentMapper;
 import com.artemis.systems.IteratingSystem;
 import com.github.exformatgames.pacman.server.GameWorld;
-import com.github.exformatgames.pacman.server.data.EntityData;
-import com.github.exformatgames.pacman.server.data.GameField;
+import data.EntityData;
+import data.GameField;
 import com.github.exformatgames.pacman.server.ecs.components.transform.MoveComponent;
 import com.github.exformatgames.pacman.server.ecs.components.transform.PositionComponent;
 
@@ -39,7 +39,7 @@ public class MoveSystem extends IteratingSystem {
 		entityData.position.y = position.y;
 
 		field.getMap()[position.x][position.y] = entityData;
-		
+
 		moveMapper.remove(entityID);
 
 		world.getEntityEventHandler().transformedEntity(entityData);

@@ -1,7 +1,7 @@
 package com.github.exformatgames.pacman.server.ecs.utils;
 
-import com.github.exformatgames.pacman.server.data.MapData;
-import com.github.exformatgames.pacman.server.data.PositionData;
+import data.MapData;
+import data.PositionData;
 
 public class PacmanSpawnPoint {
 	private static PositionData position = new PositionData();

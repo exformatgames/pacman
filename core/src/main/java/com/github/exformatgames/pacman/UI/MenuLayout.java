@@ -16,7 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.I18NBundle;
 import com.github.exformatgames.pacman.GameContext;
-import com.github.exformatgames.pacman.client.ConnectionStatusListener;
+import com.github.exformatgames.pacman.net.ConnectionStatusListener;
 import com.github.exformatgames.pacman.managers.LocalizationManager;
 import com.github.exformatgames.pacman.data.AppData;
 import com.github.exformatgames.pacman.screens.GameScreen;

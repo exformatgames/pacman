@@ -1,7 +1,6 @@
 package com.github.exformatgames.pacman.screens;
 
 import com.badlogic.gdx.Screen;
-import com.github.exformatgames.pacman.client.Client;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.github.exformatgames.pacman.GameContext;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -13,23 +12,23 @@ import com.badlogic.gdx.Gdx;
 public class NetTestScreen implements Screen {
 
 	private final GameContext context;
-	
-	
+
+
 	private Stage stage;
 	private TestNetLayout layout;
 
 	public NetTestScreen (GameContext context) {
 		this.context = context;
-		
+
 		stage = new Stage(new FitViewport(480, 720));
 		layout = new TestNetLayout(context);
-		
+
 		stage.addActor(layout);
-		
+
 	}
-	
-	
-	
+
+
+
 	@Override
 	public void show () {
 		layout.show();
@@ -39,7 +38,7 @@ public class NetTestScreen implements Screen {
 	@Override
 	public void render (float dt) {
 		ScreenUtils.clear(Color.GRAY);
-		
+
 		stage.act(dt);
 		stage.draw();
 	}

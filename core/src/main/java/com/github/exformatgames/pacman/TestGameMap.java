@@ -1,8 +1,8 @@
 package com.github.exformatgames.pacman;
 
-import com.github.exformatgames.pacman.data.EntityData;
-import com.github.exformatgames.pacman.data.EntityType;
-import com.github.exformatgames.pacman.data.MapData;
+import data.EntityData;
+import data.EntityType;
+import data.MapData;
 
 public class TestGameMap {
 

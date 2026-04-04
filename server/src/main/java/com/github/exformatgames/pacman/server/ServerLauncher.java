@@ -1,8 +1,9 @@
 package com.github.exformatgames.pacman.server;
 
-import com.github.exformatgames.pacman.server.data.MapData;
-import com.github.exformatgames.pacman.server.netty.NettyServer;
+
+import com.github.exformatgames.pacman.server.net.netty.NettyServer;
 import com.github.exformatgames.pacman.server.net.NetService;
+import data.MapData;
 
 public class ServerLauncher {
 
@@ -17,7 +18,7 @@ public class ServerLauncher {
 		NettyServer server = new NettyServer(8080, gameWorld);
 
 		NetService netService = new NetService(gameWorld, server);
-		
+
 		gameWorld.setNetService(netService);
 
 

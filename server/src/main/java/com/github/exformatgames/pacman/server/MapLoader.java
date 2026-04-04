@@ -1,6 +1,6 @@
 package com.github.exformatgames.pacman.server;
 
-import com.github.exformatgames.pacman.server.data.MapData;
+import data.MapData;
 
 /**
  * @author Exformat, ChatGPT

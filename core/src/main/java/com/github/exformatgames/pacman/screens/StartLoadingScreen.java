@@ -11,7 +11,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.github.exformatgames.pacman.assets.Assets;
 import com.github.exformatgames.pacman.assets.LoadingAssets;
 import com.github.exformatgames.pacman.UI.StartLoadingLayout;
-import com.github.exformatgames.pacman.client.netty.NettyClient;
+import com.github.exformatgames.pacman.net.netty.NettyClient;
 import com.github.exformatgames.pacman.managers.AppDataManager;
 import com.github.exformatgames.pacman.managers.data.PreferencesAppDataService;
 import com.github.exformatgames.pacman.PacmanGame;

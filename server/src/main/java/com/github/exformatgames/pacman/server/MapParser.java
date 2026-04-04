@@ -4,10 +4,10 @@ package com.github.exformatgames.pacman.server;
  * @author Exformat, ChatGPT
  */
 
-import com.github.exformatgames.pacman.server.data.EntityData;
-import com.github.exformatgames.pacman.server.data.EntityType;
-import com.github.exformatgames.pacman.server.data.MapData;
-import com.github.exformatgames.pacman.server.data.PositionData;
+import data.EntityData;
+import data.EntityType;
+import data.MapData;
+import data.PositionData;
 
 import java.io.BufferedReader;
 import java.util.ArrayList;

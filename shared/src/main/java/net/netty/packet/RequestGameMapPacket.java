@@ -1,0 +1,14 @@
+package net.netty.packet;
+
+public class RequestGameMapPacket extends Packet {
+
+    @Override
+    public PacketType getType() {
+        return PacketType.REQUEST_GAME_MAP;
+    }
+
+    @Override
+    public String toString() {
+        return "RequestGameMapPacket{}";
+    }
+}

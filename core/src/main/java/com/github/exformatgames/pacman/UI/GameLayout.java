@@ -14,8 +14,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.I18NBundle;
 import com.github.exformatgames.pacman.GameContext;
 import com.github.exformatgames.pacman.managers.LocalizationManager;
-import com.github.exformatgames.pacman.data.InputData;
 import com.github.exformatgames.pacman.screens.MenuScreen;
+import data.InputData;
 
 public class GameLayout extends Table implements Layout, LocalizationManager.Localizable {
 

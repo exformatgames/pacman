@@ -3,24 +3,20 @@ package com.github.exformatgames.pacman.server;
 import com.artemis.BaseSystem;
 import com.artemis.World;
 import com.artemis.WorldConfigurationBuilder;
-import com.github.exformatgames.pacman.server.data.EntityData;
-import com.github.exformatgames.pacman.server.data.EntityType;
-import com.github.exformatgames.pacman.server.data.GameField;
-import com.github.exformatgames.pacman.server.data.MapData;
 import com.github.exformatgames.pacman.server.ecs.EntityBuilder;
 import com.github.exformatgames.pacman.server.ecs.entities.FoodEntityBuilder;
-import com.github.exformatgames.pacman.server.ecs.systems.DirectionSystem;
-import com.github.exformatgames.pacman.server.ecs.systems.FoodPeekUpSystem;
-import com.github.exformatgames.pacman.server.ecs.systems.MoveSystem;
-import com.github.exformatgames.pacman.server.ecs.systems.PressedKeySystem;
-import com.github.exformatgames.pacman.server.ecs.systems.ReleasedKeySystem;
-import com.github.exformatgames.pacman.server.netty.NettyServer;
+import com.github.exformatgames.pacman.server.ecs.systems.*;
+import com.github.exformatgames.pacman.server.net.NetService;
+import data.EntityData;
+import data.EntityType;
+import data.GameField;
+import data.MapData;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import com.github.exformatgames.pacman.server.net.NetService;
 
 //ну.. миллиард геттеров лучше чем миллиард логики...
 public class GameWorld {
@@ -101,7 +97,7 @@ public class GameWorld {
 		return mapData;
 	}
 
-	
+
 	public void setNetService (NetService netService) {
 		this.netService = netService;
 	}
@@ -113,7 +109,7 @@ public class GameWorld {
 	public PlayerHandler getPlayerHandler () {
 		return playerHandler;
 	}
-	
+
 	public World getWorld () {
 		return world;
 	}

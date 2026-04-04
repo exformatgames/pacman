@@ -14,8 +14,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.I18NBundle;
 import com.github.exformatgames.pacman.GameContext;
-import com.github.exformatgames.pacman.client.ConnectionStatusListener;
-import com.github.exformatgames.pacman.client.service.TestService;
+import com.github.exformatgames.pacman.net.ConnectionStatusListener;
+import com.github.exformatgames.pacman.net.service.TestService;
 import com.github.exformatgames.pacman.managers.LocalizationManager;
 import com.github.exformatgames.pacman.screens.MenuScreen;
 import com.badlogic.gdx.math.MathUtils;
@@ -41,7 +41,7 @@ public class TestNetLayout extends Table implements Layout, LocalizationManager.
 		createElements();
 		initLayout();
 		createListeners();
-		
+
 		context.getClient().addConnectionStatusListener(this);
 	}
 
@@ -142,9 +142,9 @@ public class TestNetLayout extends Table implements Layout, LocalizationManager.
 		);
 	}
 
-	
-	
-	
+
+
+
 	@Override
 	public void applyLocale (I18NBundle bundle) {}
 }

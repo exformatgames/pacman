@@ -1,8 +1,8 @@
 package com.github.exformatgames.pacman.server;
 
-import com.github.exformatgames.pacman.server.data.EntityData;
-import com.github.exformatgames.pacman.server.data.EntityType;
-import com.github.exformatgames.pacman.server.data.PositionData;
+import data.EntityData;
+import data.EntityType;
+import data.PositionData;
 import com.github.exformatgames.pacman.server.ecs.entities.PacmanEntityBuilder;
 import com.github.exformatgames.pacman.server.ecs.utils.PacmanSpawnPoint;
 

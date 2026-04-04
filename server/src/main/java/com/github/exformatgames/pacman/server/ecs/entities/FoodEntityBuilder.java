@@ -1,6 +1,6 @@
 package com.github.exformatgames.pacman.server.ecs.entities;
 
-import com.github.exformatgames.pacman.server.data.EntityData;
+import data.EntityData;
 import com.github.exformatgames.pacman.server.ecs.EntityBuilder;
 import com.github.exformatgames.pacman.server.ecs.components.FoodComponent;
 import com.github.exformatgames.pacman.server.ecs.components.transform.PositionComponent;

@@ -1,16 +1,15 @@
 package com.github.exformatgames.pacman.server;
 
-import com.github.exformatgames.pacman.server.data.MapData;
-import com.github.exformatgames.pacman.server.netty.packet.ResponseGameMapPacket;
+import data.MapData;
 
 public class MapDataHandler {
-	
+
 	private final GameWorld gameWorld;
 
 	public MapDataHandler (GameWorld gameWorld) {
 		this.gameWorld = gameWorld;
 	}
-	
+
 	public void requestGameMap(final int clientID) {
 		gameWorld.getCommandQueue().add(new Runnable() {
 				@Override

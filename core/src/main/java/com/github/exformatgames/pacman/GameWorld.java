@@ -6,11 +6,8 @@ import com.artemis.WorldConfigurationBuilder;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.IntMap;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.github.exformatgames.pacman.client.service.GameMapService;
-import com.github.exformatgames.pacman.client.service.ServerGameEventService;
-import com.github.exformatgames.pacman.data.EntityData;
-import com.github.exformatgames.pacman.data.EntityType;
-import com.github.exformatgames.pacman.data.MapData;
+import com.github.exformatgames.pacman.net.service.GameMapService;
+import com.github.exformatgames.pacman.net.service.ServerGameEventService;
 import com.github.exformatgames.pacman.ecs.EntityBuilder;
 import com.github.exformatgames.pacman.ecs.components.transform.ChangePositionComponent;
 import com.github.exformatgames.pacman.ecs.entities.FoodEntityBuilder;
@@ -21,6 +18,10 @@ import com.github.exformatgames.pacman.ecs.systems.ChangePositionSystem;
 import com.github.exformatgames.pacman.ecs.systems.MoveSystem;
 import com.github.exformatgames.pacman.ecs.systems.SoundSystem;
 import com.github.exformatgames.pacman.ecs.systems.SpriteRenderSystem;
+import data.EntityData;
+import data.EntityType;
+import data.MapData;
+
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class GameWorld implements ServerGameEventService.EntityCreatedListener, ServerGameEventService.EntityRemovedListener, ServerGameEventService.EntityTransformedListener, GameMapService.GameMapReceivedListener {
@@ -35,7 +36,7 @@ public class GameWorld implements ServerGameEventService.EntityCreatedListener, 
     private final WallEntityBuilder wallEntityBuilder = new WallEntityBuilder();
 
 	private final ConcurrentLinkedQueue<Runnable> eventQueue = new ConcurrentLinkedQueue<>();
-	
+
 	//for test reaction, render
     //private final TestGameMap testGameMap;
 
@@ -59,7 +60,7 @@ public class GameWorld implements ServerGameEventService.EntityCreatedListener, 
         EntityBuilder.artemisWorld = world;
         EntityBuilder.assets = context.getAssets();
 
-		
+
 		context.getClient().setEventQueue(eventQueue);
         context.getClient().getGameEventService().addEntityCreatedListener(this);
         context.getClient().getGameMapService().addListener(this);
@@ -78,7 +79,7 @@ public class GameWorld implements ServerGameEventService.EntityCreatedListener, 
 		while ((task = eventQueue.poll()) != null) {
 			task.run();
 		}
-		
+
         world.setDelta(dT);
         world.process();
     }
