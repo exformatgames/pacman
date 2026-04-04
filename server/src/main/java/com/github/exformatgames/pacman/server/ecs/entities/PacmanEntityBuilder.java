@@ -1,10 +1,10 @@
 package com.github.exformatgames.pacman.server.ecs.entities;
 
 import com.github.exformatgames.pacman.server.ecs.EntityBuilder;
-import data.EntityData;
 import com.github.exformatgames.pacman.server.ecs.components.PacmanComponent;
 import com.github.exformatgames.pacman.server.ecs.components.transform.DirectionComponent;
 import com.github.exformatgames.pacman.server.ecs.components.transform.PositionComponent;
+import data.EntityData;
 
 public class PacmanEntityBuilder extends EntityBuilder {
 

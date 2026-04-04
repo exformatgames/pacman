@@ -1,8 +1,8 @@
 package com.github.exformatgames.pacman.server;
 
 
-import com.github.exformatgames.pacman.server.net.netty.NettyServer;
 import com.github.exformatgames.pacman.server.net.NetService;
+import com.github.exformatgames.pacman.server.net.netty.NettyServer;
 import data.MapData;
 
 public class ServerLauncher {

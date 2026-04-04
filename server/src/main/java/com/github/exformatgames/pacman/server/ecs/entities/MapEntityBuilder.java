@@ -1,9 +1,9 @@
 package com.github.exformatgames.pacman.server.ecs.entities;
 
 import com.github.exformatgames.pacman.server.ecs.EntityBuilder;
+import com.github.exformatgames.pacman.server.ecs.components.MapComponent;
 import data.GameField;
 import data.MapData;
-import com.github.exformatgames.pacman.server.ecs.components.MapComponent;
 
 public class MapEntityBuilder extends EntityBuilder {
 

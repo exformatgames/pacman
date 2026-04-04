@@ -6,18 +6,12 @@ package com.github.exformatgames.pacman.server.ecs.systems;
 import com.artemis.Aspect;
 import com.artemis.ComponentMapper;
 import com.artemis.systems.IntervalIteratingSystem;
+import com.github.exformatgames.pacman.server.ecs.GameConstants;
+import com.github.exformatgames.pacman.server.ecs.components.transform.*;
+import com.github.exformatgames.pacman.server.ecs.components.transform.DirectionComponent.Direction;
 import data.EntityData;
 import data.EntityType;
 import data.GameField;
-import com.github.exformatgames.pacman.server.ecs.GameConstants;
-import com.github.exformatgames.pacman.server.ecs.components.transform.DirectionComponent;
-import com.github.exformatgames.pacman.server.ecs.components.transform.DirectionComponent.Direction;
-import com.github.exformatgames.pacman.server.ecs.components.transform.DirectionDownComponent;
-import com.github.exformatgames.pacman.server.ecs.components.transform.DirectionLeftComponent;
-import com.github.exformatgames.pacman.server.ecs.components.transform.DirectionRightComponent;
-import com.github.exformatgames.pacman.server.ecs.components.transform.DirectionUpComponent;
-import com.github.exformatgames.pacman.server.ecs.components.transform.MoveComponent;
-import com.github.exformatgames.pacman.server.ecs.components.transform.PositionComponent;
 
 public class DirectionSystem extends IntervalIteratingSystem {
 

@@ -1,6 +1,5 @@
 package com.github.exformatgames.pacman.server.net;
 
-
 import com.github.exformatgames.pacman.server.net.netty.NettyServer;
 import data.EntityData;
 import data.MapData;

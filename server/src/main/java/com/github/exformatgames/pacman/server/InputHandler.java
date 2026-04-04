@@ -1,9 +1,10 @@
 package com.github.exformatgames.pacman.server;
 
-import data.InputData;
 import com.github.exformatgames.pacman.server.ecs.EntityBuilder;
 import com.github.exformatgames.pacman.server.ecs.components.input.KeyPressedComponent;
 import com.github.exformatgames.pacman.server.ecs.components.input.KeyReleasedComponent;
+import data.InputData;
+
 import java.util.Queue;
 
 public class InputHandler {

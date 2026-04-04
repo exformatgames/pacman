@@ -1,10 +1,10 @@
 package com.github.exformatgames.pacman.server;
 
+import com.github.exformatgames.pacman.server.ecs.entities.PacmanEntityBuilder;
+import com.github.exformatgames.pacman.server.ecs.utils.PacmanSpawnPoint;
 import data.EntityData;
 import data.EntityType;
 import data.PositionData;
-import com.github.exformatgames.pacman.server.ecs.entities.PacmanEntityBuilder;
-import com.github.exformatgames.pacman.server.ecs.utils.PacmanSpawnPoint;
 
 public class PlayerHandler {
 

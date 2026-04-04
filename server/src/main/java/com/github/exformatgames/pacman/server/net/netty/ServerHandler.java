@@ -1,10 +1,11 @@
 package com.github.exformatgames.pacman.server.net.netty;
 
-import net.netty.packet.Packet;
-import net.netty.utils.PacketHandler;
-import net.netty.packet.PacketType;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import net.netty.packet.Packet;
+import net.netty.packet.PacketType;
+import net.netty.utils.PacketHandler;
+
 import java.util.HashMap;
 import java.util.Map;
 

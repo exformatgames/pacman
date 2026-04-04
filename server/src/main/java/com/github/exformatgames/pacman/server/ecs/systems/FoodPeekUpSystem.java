@@ -4,12 +4,12 @@ import com.artemis.Aspect;
 import com.artemis.ComponentMapper;
 import com.artemis.systems.IteratingSystem;
 import com.github.exformatgames.pacman.server.GameWorld;
-import data.EntityData;
-import data.EntityType;
-import data.GameField;
 import com.github.exformatgames.pacman.server.ecs.components.PacmanComponent;
 import com.github.exformatgames.pacman.server.ecs.components.transform.MoveComponent;
 import com.github.exformatgames.pacman.server.ecs.components.transform.PositionComponent;
+import data.EntityData;
+import data.EntityType;
+import data.GameField;
 
 public class FoodPeekUpSystem extends IteratingSystem {
 
