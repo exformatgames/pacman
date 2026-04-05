@@ -24,21 +24,21 @@ public class SendService {
 
 	public void sendEntityCreated(int clientID, EntityData data) {
 		EntityPacket packet = new EntityPacket();
-		packet.type = PacketType.ENTITY_CREATED;
+		packet.setType(PacketType.ENTITY_CREATED);
 		packet.data = data;
 		server.sendTo(clientID, packet);
 	}
 
 	public void sendEntityRemoved(int clientID, EntityData data) {
 		EntityPacket packet = new EntityPacket();
-		packet.type = PacketType.ENTITY_REMOVED;
+		packet.setType(PacketType.ENTITY_REMOVED);
 		packet.data = data;
 		server.sendTo(clientID, packet);
 	}
 
 	public void sendEntityTransformed(int clientID, EntityData data) {
 		EntityPacket packet = new EntityPacket();
-		packet.type = PacketType.ENTITY_TRANSFORMED;
+        packet.setType(PacketType.ENTITY_TRANSFORMED);
 		packet.data = data;
 		server.sendTo(clientID, packet);
 	}

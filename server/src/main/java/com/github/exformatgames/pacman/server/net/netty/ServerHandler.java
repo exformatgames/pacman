@@ -19,12 +19,10 @@ public class ServerHandler extends SimpleChannelInboundHandler<Packet> {
 		this.service = service;
 	}
 
-	//была мысль и сюда хендлеры сделать.. но чет перебор мне кажется..
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) {
         System.out.println("channelActive");
 		service.addClient(ctx.channel());
-
 	}
 
     @Override
@@ -35,10 +33,28 @@ public class ServerHandler extends SimpleChannelInboundHandler<Packet> {
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, Packet packet) {
+        System.out.println("ServertHandler.read.PacketType: " + packet.getType());
+
 		PacketHandler handler = handlerMap.get(packet.getType());
 		if (handler != null) {
-			handler.handle(ctx.channel(), packet);
+            System.out.println("ServertHandler.read.handler: " + handler.toString());
+            handler.handle(ctx.channel(), packet);
 		}
+        else {
+            switch (packet.getType()) {
+                case PING: {
+                    System.out.println("ServerHandler.read0.PING");
+
+                    service.sendTo(service.getClientID(ctx.channel()), new Packet() {
+                        @Override
+                        public PacketType getType() {
+                            return PacketType.PONG;
+                        }
+                    });
+                    break;
+                }
+            }
+        }
     }
 
     @Override

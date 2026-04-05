@@ -20,8 +20,6 @@ public class PacketDecoder extends ByteToMessageDecoder {
     @Override
 	protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) {
 
-        System.out.println("message!!");
-
 		if (in.readableBytes() < 4) return;
 
 		int typeId = in.readInt();
@@ -37,12 +35,18 @@ public class PacketDecoder extends ByteToMessageDecoder {
         if (reader != null) {
             Packet packet = reader.read(in);
             if (packet != null) {
+                if (packet.getType() == null) {
+                    System.out.println("decoder.PacetType is null: " + packet.toString());
+                    packet.setType(type);
+                }
                 out.add(packet);
+                System.out.println("decoder: " + packet.toString());
             }
         }
         else {
             Packet packet = PacketBuilder.build(type);
             out.add(packet);
+            System.out.println("decoder not reader: " + packet.toString());
         }
 	}
 }

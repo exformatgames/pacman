@@ -12,6 +12,7 @@ public class NetService {
 	public NetService (GameWorld gameWorld, NettyServer server) {
 		this.gameWorld = gameWorld;
 		this.server = server;
+        sendService = new SendService(server);
 	}
 
 

@@ -18,17 +18,18 @@ public class PlayerHandler {
 
 	//pacmanID = playerID
     public void addPlayer (final int ID) {
-        gameWorld.getCommandQueue().add(new Runnable() {
+        System.out.println("PlayerHandler.addPlayer");
+        gameWorld.addCommand(new Runnable() {
 				@Override
 				public void run () {
+                    System.out.println("Command:addPlayer");
 					EntityData data = new EntityData();
 					data.ID = ID;
 					data.type = EntityType.PACMAN;
-
+                    data.position = new PositionData();
 					PositionData position = PacmanSpawnPoint.get(gameWorld.getMapData());
 					data.position.x = position.x;
 					data.position.y = position.y;
-
 					int entityID = pacmanEB.build(data);
 
 					gameWorld.getPlayerIDList().add(ID);
@@ -41,7 +42,7 @@ public class PlayerHandler {
     }
 
     public void removePlayer (final int ID) {
-        gameWorld.getCommandQueue().add(new Runnable() {
+        gameWorld.addCommand(new Runnable() {
 				@Override
 				public void run () {
 					gameWorld.getPlayerIDList().remove((Integer)ID);

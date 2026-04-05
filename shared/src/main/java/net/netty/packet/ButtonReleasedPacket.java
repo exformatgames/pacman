@@ -8,7 +8,7 @@ public class ButtonReleasedPacket extends Packet {
 
 	@Override
 	public PacketType getType () {
-		return PacketType.PRESSED_BUTTON;
+		return PacketType.RELEASED_BUTTON;
 	}
 
     @Override

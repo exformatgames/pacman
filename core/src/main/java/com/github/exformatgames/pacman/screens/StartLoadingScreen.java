@@ -100,8 +100,8 @@ public class StartLoadingScreen implements Screen {
 
 			//TODO: for test reaction, render
 			//game.showScreen(GameScreen.NAME);
-			//game.showScreen(MenuScreen.NAME);
-			game.setScreen(netTestScreen);
+			game.showScreen(MenuScreen.NAME);
+			//game.setScreen(netTestScreen);
 		}
 	}
 

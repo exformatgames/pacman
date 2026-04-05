@@ -1,7 +1,6 @@
 package net.netty.utils;
 
-import net.netty.packet.Packet;
-import net.netty.packet.PacketType;
+import net.netty.packet.*;
 
 public class PacketBuilder {
 
@@ -24,28 +23,13 @@ public class PacketBuilder {
                 };
             }
             case JOIN_GAME: {
-                return new Packet() {
-                    @Override
-                    public PacketType getType() {
-                        return PacketType.JOIN_GAME;
-                    }
-                };
+                return new JoinGamePacket();
             }
             case EXIT_GAME: {
-                return new Packet() {
-                    @Override
-                    public PacketType getType() {
-                        return PacketType.EXIT_GAME;
-                    }
-                };
+                return new ExitGamePacket();
             }
             case REQUEST_GAME_MAP: {
-                return new Packet() {
-                    @Override
-                    public PacketType getType() {
-                        return PacketType.REQUEST_GAME_MAP;
-                    }
-                };
+                return new RequestGameMapPacket();
             }
         }
 

@@ -8,6 +8,7 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
+import io.netty.handler.codec.LengthFieldPrepender;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import io.netty.util.concurrent.Future;
@@ -45,16 +46,14 @@ public class NettyServer {
 
     private EventLoopGroup bossGroup;
     private EventLoopGroup workerGroup;
-	private ServerHandler serverHandler;
+	//private ServerHandler serverHandler;
 
     public NettyServer (int port, GameWorld gameWorld) {
         this.port = port;
 		this.gameWorld = gameWorld;
 
-		serverHandler = new ServerHandler(this);
-
-		registerPackets();
-		registerHandlers();
+		//serverHandler = new ServerHandler(this);
+        registerPackets();
     }
 
     public void start () {
@@ -72,10 +71,16 @@ public class NettyServer {
                     ChannelPipeline pipeline = ch.pipeline();
 
 					pipeline.addLast(new LoggingHandler(LogLevel.DEBUG));
-					pipeline.addLast(new LengthFieldBasedFrameDecoder(65536, 0, 4, 0, 4));
+
+                    pipeline.addLast(new LengthFieldBasedFrameDecoder(65536, 0, 4, 0, 4));
 					pipeline.addLast(new PacketDecoder(registry));
-					pipeline.addLast(new PacketEncoder(registry));
-					pipeline.addLast(new ServerHandler(NettyServer.this));
+
+                    pipeline.addLast(new LengthFieldPrepender(4));
+                    pipeline.addLast(new PacketEncoder(registry));
+
+                    ServerHandler serverHandler = new ServerHandler(NettyServer.this);
+                    registerHandlers(serverHandler);
+                    pipeline.addLast(serverHandler);
                 }
             });
 
@@ -123,7 +128,7 @@ public class NettyServer {
         registry.register(PacketType.ENTITY_TRANSFORMED, new EntityPacketReader(), new EntityPacketWriter());
 	}
 
-	private void registerHandlers () {
+	private void registerHandlers (ServerHandler serverHandler) {
 		serverHandler.addPacketHandler(PacketType.PRESSED_BUTTON, new ButtonPressedHandler(this, gameWorld));
 		serverHandler.addPacketHandler(PacketType.RELEASED_BUTTON, new ButtonReleasedHandler(this, gameWorld));
 		serverHandler.addPacketHandler(PacketType.JOIN_GAME, new JoinGameHandler(this, gameWorld));

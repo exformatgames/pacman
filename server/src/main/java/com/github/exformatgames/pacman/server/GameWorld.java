@@ -147,7 +147,8 @@ public class GameWorld {
 		return mapDataHandler;
 	}
 
-	public Queue<Runnable> getCommandQueue () {
-		return commandQueue;
+	public void addCommand (Runnable runnable) {
+        System.out.println("Server.GameWorld.addCommand");
+		commandQueue.add(runnable);
 	}
 }

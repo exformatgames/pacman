@@ -11,7 +11,7 @@ public class MapDataHandler {
 	}
 
 	public void requestGameMap(final int clientID) {
-		gameWorld.getCommandQueue().add(new Runnable() {
+		gameWorld.addCommand(new Runnable() {
 				@Override
 				public void run() {
 					MapData mapData = gameWorld.buildMapData();

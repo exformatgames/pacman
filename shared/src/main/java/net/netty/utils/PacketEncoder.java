@@ -29,5 +29,7 @@ public class PacketEncoder extends MessageToByteEncoder<Packet> {
         }
 
 		out.writeBytes(buffer);
-	}
+
+        System.out.println("encoder: " + msg.toString());
+    }
 }

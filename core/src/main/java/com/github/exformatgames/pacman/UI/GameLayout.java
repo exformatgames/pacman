@@ -115,6 +115,11 @@ public class GameLayout extends Table implements Layout, LocalizationManager.Loc
 				}
 			});
 
+        initKeyDownListeners();
+        initKeyUpListeners();
+
+
+
         if (Gdx.app.getType() == Application.ApplicationType.Android || Gdx.app.getType() == Application.ApplicationType.iOS) {
             toLeftBtn.addListener(new ClickListener() {
                 @Override
@@ -177,5 +182,89 @@ public class GameLayout extends Table implements Layout, LocalizationManager.Loc
     @Override
     public void applyLocale(I18NBundle bundle) {
         exitBtn.setText(bundle.get("ExitButton"));
+    }
+
+    private void initKeyDownListeners() {
+        addListener(new InputListener() {
+            public boolean keyDown (InputEvent event, int keycode) {
+                if (keycode == Input.Keys.LEFT || keycode == Input.Keys.A) {
+                    context.getClient().getButtonEventService().onButtonPressed(InputData.MOVE_LEFT);
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        addListener(new InputListener() {
+            public boolean keyDown (InputEvent event, int keycode) {
+                if (keycode == Input.Keys.RIGHT || keycode == Input.Keys.D) {
+                    context.getClient().getButtonEventService().onButtonPressed(InputData.MOVE_RIGHT);
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        addListener(new InputListener() {
+            public boolean keyDown (InputEvent event, int keycode) {
+                if (keycode == Input.Keys.UP || keycode == Input.Keys.W) {
+                    context.getClient().getButtonEventService().onButtonPressed(InputData.MOVE_UP);
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        addListener(new InputListener() {
+            public boolean keyDown (InputEvent event, int keycode) {
+                if (keycode == Input.Keys.DOWN || keycode == Input.Keys.S) {
+                    context.getClient().getButtonEventService().onButtonPressed(InputData.MOVE_DOWN);
+                    return true;
+                }
+                return false;
+            }
+        });
+    }
+
+    private void initKeyUpListeners() {
+        addListener(new InputListener() {
+            public boolean keyUp (InputEvent event, int keycode) {
+                if (keycode == Input.Keys.LEFT || keycode == Input.Keys.A) {
+                    context.getClient().getButtonEventService().onButtonReleased(InputData.MOVE_LEFT);
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        addListener(new InputListener() {
+            public boolean keyUp (InputEvent event, int keycode) {
+                if (keycode == Input.Keys.RIGHT || keycode == Input.Keys.D) {
+                    context.getClient().getButtonEventService().onButtonReleased(InputData.MOVE_RIGHT);
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        addListener(new InputListener() {
+            public boolean keyUp (InputEvent event, int keycode) {
+                if (keycode == Input.Keys.UP || keycode == Input.Keys.W) {
+                    context.getClient().getButtonEventService().onButtonReleased(InputData.MOVE_UP);
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        addListener(new InputListener() {
+            public boolean keyUp (InputEvent event, int keycode) {
+                if (keycode == Input.Keys.DOWN || keycode == Input.Keys.S) {
+                    context.getClient().getButtonEventService().onButtonReleased(InputData.MOVE_DOWN);
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 }

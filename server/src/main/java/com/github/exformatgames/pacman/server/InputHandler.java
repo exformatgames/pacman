@@ -11,32 +11,29 @@ public class InputHandler {
 
 	private final GameWorld gameWorld;
 
-	private final Queue<Runnable> commandQueue;
-
 	public InputHandler (GameWorld gameWorld) {
 		this.gameWorld = gameWorld;
-		commandQueue = gameWorld.getCommandQueue();
 	}
 
 	public void pressedButton (final int playerID, final InputData action) {
-        commandQueue.add(new Runnable() {
+        gameWorld.addCommand(new Runnable() {
 				@Override
 				public void run () {
 					int entityID = gameWorld.getEntityID(playerID);
 					if (entityID != -1) {
-						EntityBuilder.addComponent(entityID, KeyPressedComponent.class);
+						EntityBuilder.addComponent(entityID, KeyPressedComponent.class).action = action;
 					}
 				}
 			});
     }
 
 	public void releaseButton (final int playerID, final InputData action) {
-        commandQueue.add(new Runnable() {
+        gameWorld.addCommand(new Runnable() {
 				@Override
 				public void run () {
 					int entityID = gameWorld.getEntityID(playerID);
 					if (entityID != -1) {
-						EntityBuilder.addComponent(entityID, KeyReleasedComponent.class);
+						EntityBuilder.addComponent(entityID, KeyReleasedComponent.class).action = action;
 					}
 				}
 			});

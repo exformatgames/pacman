@@ -37,6 +37,7 @@ public class Connection implements ConnectionService {
 				@Override
 				protected void initChannel (SocketChannel ch) {
 					ChannelPipeline p = ch.pipeline();
+
 					p.addLast(new LoggingHandler(LogLevel.DEBUG));
 
 					p.addLast(new LengthFieldBasedFrameDecoder(65536, 0, 4, 0, 4));
