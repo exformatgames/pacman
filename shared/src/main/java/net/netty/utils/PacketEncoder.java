@@ -17,7 +17,6 @@ public class PacketEncoder extends MessageToByteEncoder<Packet> {
 
 	@Override
 	protected void encode(ChannelHandlerContext ctx, Packet msg, ByteBuf out) {
-        System.out.println("PacketEncoder.encode: " + msg.toString());
 		ByteBuf buffer = ctx.alloc().buffer();
 
 		PacketType type = msg.getType();
@@ -25,12 +24,9 @@ public class PacketEncoder extends MessageToByteEncoder<Packet> {
 
 		PacketWriter writer = registry.getWriter(type);
         if (writer != null) {
-            System.out.println("PacketEncoder.encode.writer not null");
             writer.write(msg, buffer);
         }
 
 		out.writeBytes(buffer);
-
-        System.out.println("PacketEncoder.encode. buffer size: " + out.toString());
     }
 }

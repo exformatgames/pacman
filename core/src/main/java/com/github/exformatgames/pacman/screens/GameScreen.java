@@ -85,5 +85,6 @@ public class GameScreen implements Screen {
     public void dispose() {
         gameWorld.dispose();
         stage.dispose();
+        context.getClient().dispose();
     }
 }

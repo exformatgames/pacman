@@ -73,7 +73,6 @@ public class GameWorld {
             Runnable command = commandQueue.poll();
             if (command != null) {
                 command.run();
-                System.out.println("GameWorld.updadte.end command");
             }
         }
 
@@ -98,7 +97,6 @@ public class GameWorld {
 	}
 
     public void addCommand (Runnable runnable) {
-        System.out.println("Server.GameWorld.addCommand");
         commandQueue.add(runnable);
     }
 
@@ -108,8 +106,7 @@ public class GameWorld {
     }
 
     public int getEntityID (int playerID) {
-        int entityID = entityIDMap.getOrDefault(playerID, -1);
-        return entityID;
+        return entityIDMap.getOrDefault(playerID, -1);
     }
 
 	public void setNetService (NetService netService) {

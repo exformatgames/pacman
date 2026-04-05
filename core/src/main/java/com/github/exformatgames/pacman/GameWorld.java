@@ -126,7 +126,6 @@ public class GameWorld implements ServerGameEventService.EntityCreatedListener, 
 
     @Override
     public void onEntityTransformed(EntityData data) {
-        System.out.println("GameWorld.onEntityTransformed");
         if (data.type == EntityType.PACMAN) {
             int entityID = pacmanMap.get(data.ID);
             ChangePositionComponent changePositionComponent = EntityBuilder.addComponent(entityID, ChangePositionComponent.class);
@@ -154,6 +153,8 @@ public class GameWorld implements ServerGameEventService.EntityCreatedListener, 
     }
 
     public void dispose() {
-        world.dispose();
+        if (world != null) {
+            world.dispose();
+        }
     }
 }

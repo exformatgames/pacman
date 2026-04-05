@@ -18,7 +18,6 @@ public class JoinGameHandler implements PacketHandler<JoinGamePacket> {
 
 	@Override
 	public void handle (Channel channel, JoinGamePacket packet) {
-        System.out.println("JoinGameHandler");
 		gameWorld.getPlayerHandler().addPlayer(server.getClientID(channel));
 	}
 

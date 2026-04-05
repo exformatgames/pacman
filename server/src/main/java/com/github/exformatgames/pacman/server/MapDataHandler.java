@@ -15,7 +15,6 @@ public class MapDataHandler {
 				@Override
 				public void run() {
 					MapData mapData = gameWorld.buildMapData();
-                    System.out.println("Command: requestMap");
 					//хм.. идем из нетсервиса чтоб обратно в него вернуться.. пусть и через очередь...
 					gameWorld.getNetService().getSendService().sendMapData(clientID, mapData);
 				}

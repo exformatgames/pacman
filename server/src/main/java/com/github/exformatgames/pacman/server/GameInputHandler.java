@@ -17,7 +17,6 @@ public class GameInputHandler {
         gameWorld.addCommand(new Runnable() {
 				@Override
 				public void run () {
-                    System.out.println("GameInputHandler.pressedButton");
 					int entityID = gameWorld.getEntityID(playerID);
 					if (entityID != -1) {
 						EntityBuilder.addComponent(entityID, KeyPressedComponent.class).action = action;
@@ -30,7 +29,6 @@ public class GameInputHandler {
         gameWorld.addCommand(new Runnable() {
 				@Override
 				public void run () {
-                    System.out.println("GameInputHandler.releaseButton");
                     int entityID = gameWorld.getEntityID(playerID);
 					if (entityID != -1) {
 						EntityBuilder.addComponent(entityID, KeyReleasedComponent.class).action = action;

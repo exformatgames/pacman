@@ -18,11 +18,9 @@ public class PlayerHandler {
 
 	//pacmanID = playerID
     public void addPlayer (final int ID) {
-        System.out.println("PlayerHandler.addPlayer");
         gameWorld.addCommand(new Runnable() {
 				@Override
 				public void run () {
-                    System.out.println("Command:addPlayer");
 					EntityData data = new EntityData();
 					data.ID = ID;
 					data.type = EntityType.PACMAN;

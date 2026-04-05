@@ -29,14 +29,10 @@ public class MoveSystem extends IntervalIteratingSystem {
 
 	@Override
 	protected void process (int entityID) {
-        System.out.println("MoveSystem.process: entity transformed");
 		PositionComponent position = positionMapper.get(entityID);
 		MoveComponent move = moveMapper.get(entityID);
 
 		EntityData entityData = field.getMap()[position.x][position.y];
-
-        System.out.println("MoveSystem.process: entity: " + entityData.toString());
-
 
         position.x += move.x;
 		position.y += move.y;
@@ -46,7 +42,6 @@ public class MoveSystem extends IntervalIteratingSystem {
 
 		field.getMap()[position.x][position.y] = entityData;
         field.getMap()[position.x - move.x][position.y - move.y] = null;
-
 
         moveMapper.remove(entityID);
 

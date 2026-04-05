@@ -53,7 +53,6 @@ public class DirectionSystem extends IteratingSystem {
 		}
 
 		if (horizontalOppositeDir && ! (up || down)) { // tudy-sudy
-            System.out.println("horizontal opposite");
 			if (canMove(position, directionComponent.target)) {
 				target = directionComponent.target;
 			} else {
@@ -66,7 +65,6 @@ public class DirectionSystem extends IteratingSystem {
 		}
 
 		if (verticalOppositeDir && ! (right || left)) { // jump jum jump so very high...
-            System.out.println("vertical opposite");
             if (canMove(position, directionComponent.target)) {
 				target = directionComponent.target;
 			} else {
@@ -197,8 +195,6 @@ public class DirectionSystem extends IteratingSystem {
 	}
 
 	private void move (Direction dir, int entityID) {
-        System.out.println("DirectionSystem.process.move: " + dir);
-
 		switch (dir) {
 			case UP : {
 					moveMapper.create(entityID).y = 1;

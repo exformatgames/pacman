@@ -21,30 +21,24 @@ public class ServerHandler extends SimpleChannelInboundHandler<Packet> {
 
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) {
-        System.out.println("channelActive");
 		service.addClient(ctx.channel());
 	}
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) {
-        System.out.println("channelInactive");
         service.removeClient(ctx.channel());
 	}
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, Packet packet) {
-        System.out.println("ServertHandler.read.PacketType: " + packet.getType());
 
 		PacketHandler handler = handlerMap.get(packet.getType());
 		if (handler != null) {
-            System.out.println("ServertHandler.read.handler: " + handler.toString());
             handler.handle(ctx.channel(), packet);
 		}
         else {
             switch (packet.getType()) {
                 case PING: {
-                    System.out.println("ServerHandler.read0.PING");
-
                     service.sendTo(service.getClientID(ctx.channel()), new Packet() {
                         @Override
                         public PacketType getType() {
