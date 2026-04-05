@@ -25,6 +25,13 @@ public class ServerLauncher {
 		server.start();
         System.out.println("start.");
 
+        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+            @Override
+            public void run() {
+                server.stop();
+            }
+        }));
+
         long timer = 0;
         long oldTime = System.nanoTime();
 
