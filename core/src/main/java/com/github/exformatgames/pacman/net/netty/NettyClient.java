@@ -51,6 +51,19 @@ public class NettyClient extends Client {
 		packetSender = new PacketSender(this);
 	}
 
+    public PacketRegistry getRegistry () {
+        return registry;
+    }
+
+    private void registerPackets() {
+        registry.register(PacketType.PRESSED_BUTTON, new ButtonPressedPacketReader(), new ButtonPressedPacketWriter());
+        registry.register(PacketType.RELEASED_BUTTON, new ButtonReleasedPacketReader(), new ButtonReleasedPacketWriter());
+        registry.register(PacketType.RESPONSE_GAME_MAP, new MapPacketReader(), new MapPacketWriter());
+        registry.register(PacketType.ENTITY_CREATED, new EntityPacketReader(), new EntityPacketWriter());
+        registry.register(PacketType.ENTITY_REMOVED, new EntityPacketReader(), new EntityPacketWriter());
+        registry.register(PacketType.ENTITY_TRANSFORMED, new EntityPacketReader(), new EntityPacketWriter());
+    }
+
 	public PacketSender getPacketSender () {
 		return packetSender;
 	}
@@ -71,28 +84,12 @@ public class NettyClient extends Client {
 		return bootstrap;
 	}
 
-	public PacketRegistry getRegistry () {
-		return registry;
-	}
-
 	public ClientHandler getClientHandler () {
 		return clientHandler;
-	}
-
-	private void registerPackets() {
-		registry.register(PacketType.PRESSED_BUTTON, new ButtonPressedPacketReader(), new ButtonPressedPacketWriter());
-		registry.register(PacketType.RELEASED_BUTTON, new ButtonReleasedPacketReader(), new ButtonReleasedPacketWriter());
-		registry.register(PacketType.RESPONSE_GAME_MAP, new MapPacketReader(), new MapPacketWriter());
-		registry.register(PacketType.ENTITY_CREATED, new EntityPacketReader(), new EntityPacketWriter());
-		registry.register(PacketType.ENTITY_REMOVED, new EntityPacketReader(), new EntityPacketWriter());
-		registry.register(PacketType.ENTITY_TRANSFORMED, new EntityPacketReader(), new EntityPacketWriter());
 	}
 
 	@Override
 	public void dispose () {
 		connectionService.disconnect();
-		if (group != null) {
-			group.shutdownGracefully();
-		}
 	}
 }

@@ -24,11 +24,12 @@ public class Connection implements ConnectionService {
 
     private Channel channel;
     private final Bootstrap bootstrap;
+    private final EventLoopGroup group;
 
 	public Connection (final NettyClient client) {
 
         bootstrap = new Bootstrap();
-        EventLoopGroup group = new NioEventLoopGroup();
+        group = new NioEventLoopGroup();
 
 		bootstrap.group(group)
 			.channel(NioSocketChannel.class)
@@ -79,6 +80,7 @@ public class Connection implements ConnectionService {
 		if (channel != null) {
             try {
                 channel.close().sync();
+                group.shutdownGracefully();
                 channel = null;
                 System.out.println("disconnected...");
             } catch (InterruptedException e) {
