@@ -39,13 +39,15 @@ public class ServerGameEventService {
     }
 
     public void onEntityTransformed (final EntityData data) {
+        System.out.println("ServerGameEventService.onEntityTransformed");
         client.getEventQueue().add(new Runnable() {
 				@Override
 				public void run () {
 					for (EntityTransformedListener l : transformedListeners) {
 						l.onEntityTransformed(data);
 					}
-				}
+                    System.out.println("ServerGameEventService.onEntityTransformed.Command end run");
+                }
 			});
     }
 

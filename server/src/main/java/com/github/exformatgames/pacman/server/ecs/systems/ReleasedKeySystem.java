@@ -25,7 +25,7 @@ public class ReleasedKeySystem extends IteratingSystem {
 	protected void process (int entityID) {
 		KeyReleasedComponent keyReleasedComponent = inputMapper.get(entityID);
 
-		switch (keyReleasedComponent.action) {
+        switch (keyReleasedComponent.action) {
 			case MOVE_UP : {
 					moveUpMapper.remove(entityID);
 					break;

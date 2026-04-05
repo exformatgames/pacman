@@ -51,6 +51,8 @@ public class GameWorld implements ServerGameEventService.EntityCreatedListener, 
 
 		context.getClient().setEventQueue(eventQueue);
         context.getClient().getGameEventService().addEntityCreatedListener(this);
+        context.getClient().getGameEventService().addEntityTransformedListener(this);
+        context.getClient().getGameEventService().addEntityRemovedListener(this);
         context.getClient().getGameMapService().addListener(this);
 
 		//for test reaction, render
@@ -124,6 +126,7 @@ public class GameWorld implements ServerGameEventService.EntityCreatedListener, 
 
     @Override
     public void onEntityTransformed(EntityData data) {
+        System.out.println("GameWorld.onEntityTransformed");
         if (data.type == EntityType.PACMAN) {
             int entityID = pacmanMap.get(data.ID);
             ChangePositionComponent changePositionComponent = EntityBuilder.addComponent(entityID, ChangePositionComponent.class);

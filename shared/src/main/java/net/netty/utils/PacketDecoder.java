@@ -20,7 +20,10 @@ public class PacketDecoder extends ByteToMessageDecoder {
     @Override
 	protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) {
 
-		if (in.readableBytes() < 4) return;
+		if (in.readableBytes() < 4) {
+            System.out.println("buffer size < 4");
+            return;
+        }
 
 		int typeId = in.readInt();
 

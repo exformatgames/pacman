@@ -5,13 +5,11 @@ import com.github.exformatgames.pacman.server.ecs.components.input.KeyPressedCom
 import com.github.exformatgames.pacman.server.ecs.components.input.KeyReleasedComponent;
 import data.InputData;
 
-import java.util.Queue;
-
-public class InputHandler {
+public class GameInputHandler {
 
 	private final GameWorld gameWorld;
 
-	public InputHandler (GameWorld gameWorld) {
+	public GameInputHandler(GameWorld gameWorld) {
 		this.gameWorld = gameWorld;
 	}
 
@@ -19,6 +17,7 @@ public class InputHandler {
         gameWorld.addCommand(new Runnable() {
 				@Override
 				public void run () {
+                    System.out.println("GameInputHandler.pressedButton");
 					int entityID = gameWorld.getEntityID(playerID);
 					if (entityID != -1) {
 						EntityBuilder.addComponent(entityID, KeyPressedComponent.class).action = action;
@@ -31,7 +30,8 @@ public class InputHandler {
         gameWorld.addCommand(new Runnable() {
 				@Override
 				public void run () {
-					int entityID = gameWorld.getEntityID(playerID);
+                    System.out.println("GameInputHandler.releaseButton");
+                    int entityID = gameWorld.getEntityID(playerID);
 					if (entityID != -1) {
 						EntityBuilder.addComponent(entityID, KeyReleasedComponent.class).action = action;
 					}

@@ -35,6 +35,7 @@ public class PlayerHandler {
 					gameWorld.getPlayerIDList().add(ID);
 					gameWorld.getEntityIDMap().put(ID, entityID);
 					gameWorld.getEntityMap().put(ID, data);
+                    gameWorld.getField().getMap()[position.x][position.y] = data;
 
 					gameWorld.getEntityEventHandler().createdEntity(data);
 				}

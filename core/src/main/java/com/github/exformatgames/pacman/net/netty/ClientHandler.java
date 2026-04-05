@@ -35,20 +35,24 @@ public class ClientHandler extends SimpleChannelInboundHandler<Packet> {
                 break;
             }
             case RESPONSE_GAME_MAP:
+                System.out.println("ClientHandler.read.RESPONSE_GAME_MAP");
                 MapPacket mapPacket = (MapPacket) msg;
                 client.getGameMapService().onGameMapReceived(mapPacket.data);
                 break;
             case ENTITY_CREATED: {
+                System.out.println("ClientHandler.read.ENTITY_CREATED");
                 EntityPacket entityPacket = (EntityPacket) msg;
                 client.getGameEventService().onEntityCreated(entityPacket.data);
                 break;
             }
             case ENTITY_REMOVED: {
+                System.out.println("ClientHandler.read.ENTITY_REMOVED");
                 EntityPacket entityPacket = (EntityPacket) msg;
                 client.getGameEventService().onEntityRemoved(entityPacket.data);
                 break;
             }
             case ENTITY_TRANSFORMED: {
+                System.out.println("ClientHandler.read.ENTITY_TRANSFORMED");
                 EntityPacket entityPacket = (EntityPacket) msg;
                 client.getGameEventService().onEntityTransformed(entityPacket.data);
                 break;

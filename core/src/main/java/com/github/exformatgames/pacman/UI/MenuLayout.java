@@ -155,7 +155,6 @@ public class MenuLayout extends Table implements Layout, LocalizationManager.Loc
 		startGameBtn.addListener(new ClickListener() {
 				public void clicked (InputEvent event, float x, float y) {
 					context.getGame().showScreen(GameScreen.NAME);
-                    context.getClient().getGameSessionService().joinGame();
                     context.getAudioManager().playButtonSound();
 				}
 			});

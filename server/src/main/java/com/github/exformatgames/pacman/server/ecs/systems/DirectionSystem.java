@@ -2,10 +2,12 @@ package com.github.exformatgames.pacman.server.ecs.systems;
 
 //TODO : весь запас ифов что у меня был, вложен всюда..
 //оставь надеджу всяк сюда входящий....
+//not work..... ???
 
 import com.artemis.Aspect;
 import com.artemis.ComponentMapper;
 import com.artemis.systems.IntervalIteratingSystem;
+import com.artemis.systems.IteratingSystem;
 import com.github.exformatgames.pacman.server.ecs.GameConstants;
 import com.github.exformatgames.pacman.server.ecs.components.transform.*;
 import com.github.exformatgames.pacman.server.ecs.components.transform.DirectionComponent.Direction;
@@ -13,7 +15,7 @@ import data.EntityData;
 import data.EntityType;
 import data.GameField;
 
-public class DirectionSystem extends IntervalIteratingSystem {
+public class DirectionSystem extends IteratingSystem {
 
 	private ComponentMapper<PositionComponent> positionMapper;
 	private ComponentMapper<MoveComponent> moveMapper;
@@ -26,7 +28,7 @@ public class DirectionSystem extends IntervalIteratingSystem {
 	private final GameField field;
 
 	public DirectionSystem (GameField field) {
-		super(Aspect.one(DirectionLeftComponent.class, DirectionRightComponent.class, DirectionUpComponent.class, DirectionDownComponent.class), GameConstants.PACMAN_MOVE_TIME);
+		super(Aspect.one(DirectionLeftComponent.class, DirectionRightComponent.class, DirectionUpComponent.class, DirectionDownComponent.class));
 		this.field = field;
 	}
 
@@ -51,6 +53,7 @@ public class DirectionSystem extends IntervalIteratingSystem {
 		}
 
 		if (horizontalOppositeDir && ! (up || down)) { // tudy-sudy
+            System.out.println("horizontal opposite");
 			if (canMove(position, directionComponent.target)) {
 				target = directionComponent.target;
 			} else {
@@ -63,7 +66,8 @@ public class DirectionSystem extends IntervalIteratingSystem {
 		}
 
 		if (verticalOppositeDir && ! (right || left)) { // jump jum jump so very high...
-			if (canMove(position, directionComponent.target)) {
+            System.out.println("vertical opposite");
+            if (canMove(position, directionComponent.target)) {
 				target = directionComponent.target;
 			} else {
 				if (directionComponent.target == Direction.UP && canMove(position, Direction.DOWN)) {
@@ -85,7 +89,6 @@ public class DirectionSystem extends IntervalIteratingSystem {
 		if (target == Direction.NONE) {
 			target = singleDir(up, down, right, left, position);
 		}
-
 
 		directionComponent.target = target;
 
@@ -194,6 +197,8 @@ public class DirectionSystem extends IntervalIteratingSystem {
 	}
 
 	private void move (Direction dir, int entityID) {
+        System.out.println("DirectionSystem.process.move: " + dir);
+
 		switch (dir) {
 			case UP : {
 					moveMapper.create(entityID).y = 1;

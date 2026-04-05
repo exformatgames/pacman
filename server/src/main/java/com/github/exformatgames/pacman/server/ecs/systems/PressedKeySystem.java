@@ -25,7 +25,7 @@ public class PressedKeySystem extends IteratingSystem {
 	protected void process (int entityID) {
 		KeyPressedComponent keyPressedComponent = inputMapper.get(entityID);
 
-		switch (keyPressedComponent.action) {
+        switch (keyPressedComponent.action) {
 			case MOVE_UP : {
 					moveUpMapper.create(entityID);
 					break;

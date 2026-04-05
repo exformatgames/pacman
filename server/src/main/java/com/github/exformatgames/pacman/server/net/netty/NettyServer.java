@@ -79,6 +79,7 @@ public class NettyServer {
                     pipeline.addLast(new PacketEncoder(registry));
 
                     ServerHandler serverHandler = new ServerHandler(NettyServer.this);
+
                     registerHandlers(serverHandler);
                     pipeline.addLast(serverHandler);
                 }
@@ -103,6 +104,7 @@ public class NettyServer {
         Channel channel = clientMap.get(clientId);
         if (channel != null) {
             channel.writeAndFlush(packet);
+            System.out.println("NettyServer.sendTo: clientID:" + clientId + " packet: " + packet.toString());
         } else {
 			System.out.println("client not found..." + clientId + " packet: " + packet.toString());
 		}

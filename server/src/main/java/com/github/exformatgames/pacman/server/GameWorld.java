@@ -25,7 +25,7 @@ public class GameWorld {
     private final World world;
 	private NetService netService;
 
-	private final InputHandler inputHandler;
+	private final GameInputHandler gameInputHandler;
 	private final MapDataHandler mapDataHandler;
 	private final EntityEventHandler entityEventHandler;
 	private final PlayerHandler playerHandler;
@@ -40,7 +40,7 @@ public class GameWorld {
     public GameWorld (MapData mapData) {
         this.mapData = mapData;
 
-		inputHandler = new InputHandler(this);
+		gameInputHandler = new GameInputHandler(this);
 		mapDataHandler = new MapDataHandler(this);
 		entityEventHandler = new EntityEventHandler(this);
 		playerHandler = new PlayerHandler(this);
@@ -73,6 +73,7 @@ public class GameWorld {
             Runnable command = commandQueue.poll();
             if (command != null) {
                 command.run();
+                System.out.println("GameWorld.updadte.end command");
             }
         }
 
@@ -81,22 +82,35 @@ public class GameWorld {
     }
 
 	public MapData buildMapData () {
-		EntityData[] map = new EntityData[mapData.width * mapData.height];
-		int i = 0;
+		ArrayList<EntityData> mapList = new ArrayList<>();
+
 		for (EntityData[] list : field.getMap()) {
 			for (EntityData entityData : list) {
 				if (entityData != null) {
-					map[i] = entityData;
-					i++;
+					mapList.add(entityData);
 				}
 			}
 		}
 
-		mapData.entityList = map;
+        mapData.entityList = mapList.toArray(new EntityData[mapList.size()]);
 
 		return mapData;
 	}
 
+    public void addCommand (Runnable runnable) {
+        System.out.println("Server.GameWorld.addCommand");
+        commandQueue.add(runnable);
+    }
+
+
+    public GameField getField() {
+        return field;
+    }
+
+    public int getEntityID (int playerID) {
+        int entityID = entityIDMap.getOrDefault(playerID, -1);
+        return entityID;
+    }
 
 	public void setNetService (NetService netService) {
 		this.netService = netService;
@@ -134,21 +148,11 @@ public class GameWorld {
 		return mapData;
 	}
 
-	public int getEntityID (int playerID) {
-		int entityID = entityIDMap.getOrDefault(playerID, -1);
-		return entityID;
-	}
-
-	public InputHandler getInputHandler () {
-		return inputHandler;
+	public GameInputHandler getInputHandler () {
+		return gameInputHandler;
 	}
 
 	public MapDataHandler getMapDataHandler () {
 		return mapDataHandler;
-	}
-
-	public void addCommand (Runnable runnable) {
-        System.out.println("Server.GameWorld.addCommand");
-		commandQueue.add(runnable);
 	}
 }

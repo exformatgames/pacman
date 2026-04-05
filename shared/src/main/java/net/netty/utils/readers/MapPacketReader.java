@@ -28,7 +28,7 @@ public class MapPacketReader implements PacketReader<MapPacket> {
 
 		MapPacket packet = new MapPacket();
 		packet.data = data;
-		packet.type = PacketType.RESPONSE_GAME_MAP;
+		packet.setType(PacketType.RESPONSE_GAME_MAP);
 		return packet;
 	}
 }
