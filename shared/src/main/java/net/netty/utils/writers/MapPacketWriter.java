@@ -3,21 +3,22 @@ package net.netty.utils.writers;
 import data.EntityData;
 import net.netty.packet.MapPacket;
 import io.netty.buffer.ByteBuf;
+import net.netty.packet.ResponseGameMapPacket;
 
-public class MapPacketWriter implements PacketWriter<MapPacket> {
+public class MapPacketWriter implements PacketWriter<ResponseGameMapPacket> {
 
-	private EntityPacketWriter entityWriter = new EntityPacketWriter();
+	private final EntityPacketWriter entityWriter = new EntityPacketWriter();
 
 	@Override
-	public void write (MapPacket packet, ByteBuf out) {
-		out.writeInt(packet.data.ID);
-        out.writeInt(packet.data.width);
-		out.writeInt(packet.data.height);
+	public void write (ResponseGameMapPacket packet, ByteBuf out) {
+		out.writeInt(packet.map.ID);
+        out.writeInt(packet.map.width);
+		out.writeInt(packet.map.height);
 
-		out.writeInt(packet.data.entityList.length);
+		out.writeInt(packet.map.entityList.length);
 
-		for (EntityData data : packet.data.entityList) {
-			entityWriter.write(data, out);
+		for (EntityData data : packet.map.entityList) {
+            entityWriter.write(data, out);
 		}
 	}
 }
