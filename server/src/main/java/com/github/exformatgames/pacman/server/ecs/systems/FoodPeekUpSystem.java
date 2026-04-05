@@ -39,7 +39,9 @@ public class FoodPeekUpSystem extends IteratingSystem {
 		if (data != null && data.type == EntityType.FOOD) {
 			world.getEntityEventHandler().removedEntity(data);
 			field.getMap()[x][y] = null;
-			getWorld().delete(entityID);
+
+            //TODO hmm... crash..
+			//getWorld().delete(entityID);
 		}
 	}
 }
