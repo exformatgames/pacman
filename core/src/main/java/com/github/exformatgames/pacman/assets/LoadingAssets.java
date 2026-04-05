@@ -70,11 +70,8 @@ public class LoadingAssets {
 	private void loadI18nBundle () {
 		FileHandle[] handle = Gdx.files.internal(DEFAULT_I18N_BUNDLE_PATH).list();
 
-		if (handle.length > 0) {
-
-			assetManager.load(DEFAULT_I18N_BUNDLE_PATH + "bundle_ru", I18NBundle.class);
-			assetManager.load(DEFAULT_I18N_BUNDLE_PATH + "bundle_en", I18NBundle.class);
-		}
+        assetManager.load("i18n/bundle_en", I18NBundle.class);
+        assetManager.load("i18n/bundle_ru", I18NBundle.class);
 	}
 
 	private void loadSkin () {

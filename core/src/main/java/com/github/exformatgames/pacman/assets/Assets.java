@@ -23,8 +23,8 @@ public class Assets {
 		this.assetManager = assetManager;
 
 		String atlasFilename = LoadingAssets.DEFAULT_TEXTURE_ATLAS_PATH + "pacman.atlas";
-		String en_bundleFilename = LoadingAssets.DEFAULT_I18N_BUNDLE_PATH + "bundle_en";
-		String ru_bundleFilename = LoadingAssets.DEFAULT_I18N_BUNDLE_PATH + "bundle_ru";
+		String en_bundleFilename = "i18n/bundle_en";
+		String ru_bundleFilename = "i18n/bundle_ru";
 
 		TextureAtlas atlas = assetManager.get(atlasFilename, TextureAtlas.class);
 
