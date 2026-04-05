@@ -42,6 +42,7 @@ public class MoveSystem extends IntervalIteratingSystem {
 		position.y += move.y;
 		entityData.position.x = position.x;
 		entityData.position.y = position.y;
+        entityData.speed = GameConstants.PACMAN_SPEED;
 
 		field.getMap()[position.x][position.y] = entityData;
         field.getMap()[position.x - move.x][position.y - move.y] = null;
