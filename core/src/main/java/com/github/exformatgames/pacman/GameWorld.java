@@ -26,7 +26,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class GameWorld implements ServerGameEventService.EntityCreatedListener, ServerGameEventService.EntityRemovedListener, ServerGameEventService.EntityTransformedListener, GameMapService.GameMapReceivedListener {
 
-    private final World world;
+    private World world;
 
     private final IntMap<Integer> pacmanMap = new IntMap<>();
     private final IntMap<Integer> foodMap = new IntMap<>();
@@ -41,10 +41,26 @@ public class GameWorld implements ServerGameEventService.EntityCreatedListener, 
     //private final TestGameMap testGameMap;
 
 	private final Viewport viewport;
+    private final SpriteBatch spriteBatch;
 
     public GameWorld(GameContext context, Viewport viewport, SpriteBatch spriteBatch) {
 		this.viewport = viewport;
+        this.spriteBatch = spriteBatch;
+        EntityBuilder.assets = context.getAssets();
 
+
+		context.getClient().setEventQueue(eventQueue);
+        context.getClient().getGameEventService().addEntityCreatedListener(this);
+        context.getClient().getGameMapService().addListener(this);
+
+		//for test reaction, render
+        //testGameMap = new TestGameMap(this);
+    }
+
+    public void show(GameContext context) {
+        if (world != null) {
+            world.dispose();
+        }
         world = new World(
             new WorldConfigurationBuilder().
                 alwaysDelayComponentRemoval(true).
@@ -58,23 +74,12 @@ public class GameWorld implements ServerGameEventService.EntityCreatedListener, 
                 build());
 
         EntityBuilder.artemisWorld = world;
-        EntityBuilder.assets = context.getAssets();
-
-
-		context.getClient().setEventQueue(eventQueue);
-        context.getClient().getGameEventService().addEntityCreatedListener(this);
-        context.getClient().getGameMapService().addListener(this);
-
-		//for test reaction, render
-        //testGameMap = new TestGameMap(this);
     }
-
 
     public void update(float dT) {
 		//TODO: for test reaction, render
         //testGameMap.update(dT);
 
-		//вот умеет иногда гпт прям красиво написать. имхо
 		Runnable task;
 		while ((task = eventQueue.poll()) != null) {
 			task.run();

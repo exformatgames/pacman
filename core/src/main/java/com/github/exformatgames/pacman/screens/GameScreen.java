@@ -42,7 +42,7 @@ public class GameScreen implements Screen {
     @Override
     public void show () {
         context.getAudioManager().playGameMusic();
-
+        gameWorld.show(context);
         context.getClient().getGameMapService().requestMap();
         context.getClient().getGameSessionService().joinGame();
 
