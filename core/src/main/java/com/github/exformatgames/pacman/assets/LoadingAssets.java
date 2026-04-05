@@ -46,30 +46,17 @@ public class LoadingAssets {
 	}
 
 	private void loadMusic () {
-		FileHandle[] handle = Gdx.files.internal(DEFAULT_MUSIC_PATH).list();
-
-		for (FileHandle file: handle) {
-			if (! file.isDirectory()) {
-				log("loading music: " + file.path());
-				assetManager.load(file.path(), Music.class);
-			}
-		}
+        assetManager.load("audio/music/GameMusic.mp3", Music.class);
+        assetManager.load("audio/music/MenuMusic.mp3", Music.class);
 	}
 
 	private void loadSound () {
-		FileHandle[] handle = Gdx.files.internal(DEFAULT_SOUND_PATH).list();
-
-		for (FileHandle file: handle) {
-			if (! file.isDirectory()) {
-				log("loading sound: " + file.path());
-				assetManager.load(file.path(), Sound.class);
-			}
-		}
+        assetManager.load("audio/sound/button.wav", Sound.class);
+        assetManager.load("audio/sound/checkbox.wav", Sound.class);
+        assetManager.load("audio/sound/switch_layout.wav", Sound.class);
 	}
 
 	private void loadI18nBundle () {
-		FileHandle[] handle = Gdx.files.internal(DEFAULT_I18N_BUNDLE_PATH).list();
-
         assetManager.load("i18n/bundle_en", I18NBundle.class);
         assetManager.load("i18n/bundle_ru", I18NBundle.class);
 	}
@@ -90,38 +77,16 @@ public class LoadingAssets {
 
         assetManager.load("graphics/texture_atlas/pacman.atlas", TextureAtlas.class);
         log("loading atlas..");
-
-        FileHandle[] handle = Gdx.files.internal(DEFAULT_TEXTURE_ATLAS_PATH).list();
-		for (FileHandle file: handle) {
-			if (! file.isDirectory()) {
-                if (file.name().substring(file.name().indexOf('.'), file.name().length()).equals(".atlas")) {
-					log("loading atlas: " + file.path());
-					//assetManager.load(file.path(), TextureAtlas.class);
-                }
-			}
-		}
 	}
 
 	private void loadAnimations () {
-		FileHandle[] handle = Gdx.files.internal(DEFAULT_ANIMATIONS_PATH).list();
 
 		JsonLoader<AnimationData> loader = new JsonLoader<AnimationData>(new InternalFileHandleResolver());
 		assetManager.setLoader(AnimationData.class, loader);
 
 		JsonLoader.JsonParameter<AnimationData> param = new JsonLoader.JsonParameter<>(AnimationData.class);
-
-		for (FileHandle file: handle) {
-			if (! file.isDirectory()) {
-                if (file.name().substring(file.name().indexOf('.'), file.name().length()).equals(".json")) {
-					String path = file.path();
-
-					log("loading animations: " + path);
-
-					assetManager.load(path, AnimationData.class, param);
-					ANIMATION_PATH_LIST.add(path);
-                }
-			}
-		}
+        assetManager.load("animations/pacman-run.json", AnimationData.class, param);
+        ANIMATION_PATH_LIST.add("animations/pacman-run.json");
 	}
 
 	private void log (String msg) {
