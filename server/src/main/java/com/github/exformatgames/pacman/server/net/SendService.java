@@ -17,7 +17,6 @@ public class SendService {
 	}
 
 	public void sendMapData(int clientID, MapData data) {
-        System.out.println("SendService: sendMap. clientID: " + clientID);
 		ResponseGameMapPacket packet = new ResponseGameMapPacket();
 		packet.map = data;
 		server.sendTo(clientID, packet);

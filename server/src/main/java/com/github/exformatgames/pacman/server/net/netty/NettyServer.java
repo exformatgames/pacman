@@ -153,6 +153,7 @@ public class NettyServer {
 
 		channelMap.remove(channel);
 		clientMap.remove(ID);
+        gameWorld.getPlayerHandler().removePlayer(ID);
 
         System.out.println("client disconnected: " + ID);
 	}

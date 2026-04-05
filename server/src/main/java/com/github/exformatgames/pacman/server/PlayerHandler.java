@@ -55,6 +55,8 @@ public class PlayerHandler {
 					}
 
 					if (data != null) {
+                        PositionData pos = data.position;
+                        gameWorld.getField().getMap()[pos.x][pos.y] = null;
 						gameWorld.getEntityEventHandler().removedEntity(data);
 					}
 				}
