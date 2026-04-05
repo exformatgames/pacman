@@ -2,13 +2,10 @@ package com.github.exformatgames.pacman.server.ecs.systems;
 
 //TODO : весь запас ифов что у меня был, вложен всюда..
 //оставь надеджу всяк сюда входящий....
-//not work..... ???
 
 import com.artemis.Aspect;
 import com.artemis.ComponentMapper;
-import com.artemis.systems.IntervalIteratingSystem;
 import com.artemis.systems.IteratingSystem;
-import com.github.exformatgames.pacman.server.ecs.GameConstants;
 import com.github.exformatgames.pacman.server.ecs.components.transform.*;
 import com.github.exformatgames.pacman.server.ecs.components.transform.DirectionComponent.Direction;
 import data.EntityData;
@@ -158,6 +155,7 @@ public class DirectionSystem extends IteratingSystem {
 		return Direction.NONE;
 	}
 
+    //TODO при активном спаме интпута, пускает в стену..
 	private boolean canMove (PositionComponent positionComponent, Direction dir) {
 		int x = positionComponent.x;
 		int y = positionComponent.y;
