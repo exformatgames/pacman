@@ -61,3 +61,5 @@ pacman-run-3
 bounds:520,20,32,32
 pacman-run-4
 bounds:758,20,32,32
+food
+bounds:162,20,32,32
