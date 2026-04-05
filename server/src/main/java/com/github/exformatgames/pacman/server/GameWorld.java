@@ -7,10 +7,7 @@ import com.github.exformatgames.pacman.server.ecs.EntityBuilder;
 import com.github.exformatgames.pacman.server.ecs.entities.FoodEntityBuilder;
 import com.github.exformatgames.pacman.server.ecs.systems.*;
 import com.github.exformatgames.pacman.server.net.NetService;
-import data.EntityData;
-import data.EntityType;
-import data.GameField;
-import data.MapData;
+import data.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -61,9 +58,28 @@ public class GameWorld {
 
         EntityBuilder.artemisWorld = world;
 
+        for (int x = 0; x < field.getMap().length; x++) {
+            for (int y = 0; y < field.getMap()[x].length; y++) {
+                if (field.getMap()[x][y] == null) {
+                    EntityData entityData = new EntityData();
+
+                    entityData.type = EntityType.FOOD;
+                    entityData.position = new PositionData();
+                    entityData.position.x = x;
+                    entityData.position.y = y;
+
+                    int ID = foodEB.build(entityData);
+                    entityData.ID = ID;
+
+                    entityMap.put(ID, entityData);
+                    field.getMap()[x][y] = entityData;
+                }
+            }
+        }
+
         for (EntityData entityData : mapData.entityList) {
-            if (entityData != null && entityData.type == EntityType.FOOD) {
-                foodEB.build(entityData);
+            if (entityData == null && entityData.type == EntityType.FOOD) {
+                //foodEB.build(entityData);
             }
         }
     }
