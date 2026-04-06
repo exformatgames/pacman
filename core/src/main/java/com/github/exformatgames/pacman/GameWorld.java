@@ -6,6 +6,8 @@ import com.artemis.WorldConfigurationBuilder;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.IntMap;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.github.exformatgames.pacman.ecs.components.game.EntityRemoveComponent;
+import com.github.exformatgames.pacman.ecs.systems.*;
 import com.github.exformatgames.pacman.net.service.GameMapService;
 import com.github.exformatgames.pacman.net.service.ServerGameEventService;
 import com.github.exformatgames.pacman.ecs.EntityBuilder;
@@ -13,11 +15,6 @@ import com.github.exformatgames.pacman.ecs.components.transform.ChangePositionCo
 import com.github.exformatgames.pacman.ecs.entities.FoodEntityBuilder;
 import com.github.exformatgames.pacman.ecs.entities.PacmanEntityBuilder;
 import com.github.exformatgames.pacman.ecs.entities.WallEntityBuilder;
-import com.github.exformatgames.pacman.ecs.systems.AnimationSystem;
-import com.github.exformatgames.pacman.ecs.systems.ChangePositionSystem;
-import com.github.exformatgames.pacman.ecs.systems.MoveSystem;
-import com.github.exformatgames.pacman.ecs.systems.SoundSystem;
-import com.github.exformatgames.pacman.ecs.systems.SpriteRenderSystem;
 import data.EntityData;
 import data.EntityType;
 import data.MapData;
@@ -71,7 +68,8 @@ public class GameWorld implements ServerGameEventService.EntityCreatedListener, 
                     new MoveSystem(),
                     new SoundSystem(context),
                     new AnimationSystem(),
-                    new SpriteRenderSystem(viewport, spriteBatch)
+                    new SpriteRenderSystem(viewport, spriteBatch),
+                    new EntityRemoveSystem()
                 }).
                 build());
 
@@ -145,7 +143,8 @@ public class GameWorld implements ServerGameEventService.EntityCreatedListener, 
             }
             case FOOD: {
                 int entityID = foodMap.get(data.ID);
-                world.delete(entityID);
+                EntityBuilder.addComponent(entityID, EntityRemoveComponent.class).timer = 0.3f;
+                //world.delete(entityID);
                 foodMap.remove(data.ID);
                 break;
             }
