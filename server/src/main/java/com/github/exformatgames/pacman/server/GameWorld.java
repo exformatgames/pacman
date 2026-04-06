@@ -29,6 +29,7 @@ public class GameWorld {
 
     private final Map<Integer, Integer> entityIDMap = new HashMap<>();
     private final Map<Integer, EntityData> entityMap = new HashMap<>();
+    private final Map<Integer, EntityData> foodMap = new HashMap<>();
     private final ArrayList<Integer> playerIDList = new ArrayList<>();
 	private final Queue<Runnable> commandQueue = new ConcurrentLinkedQueue<>();
 
@@ -71,15 +72,10 @@ public class GameWorld {
                     int ID = foodEB.build(entityData);
                     entityData.ID = ID;
 
-                    entityMap.put(ID, entityData);
+                    //entityMap.put(ID, entityData);
+                    //foodMap.put(ID, entityData);
                     field.getMap()[x][y] = entityData;
                 }
-            }
-        }
-
-        for (EntityData entityData : mapData.entityList) {
-            if (entityData == null && entityData.type == EntityType.FOOD) {
-                //foodEB.build(entityData);
             }
         }
     }

@@ -41,7 +41,8 @@ public class FoodPeekUpSystem extends IteratingSystem {
 			field.getMap()[x][y] = null;
 
             //TODO hmm... crash..
-			//getWorld().delete(entityID);
+            //TODO fixed... stupid... delete food or pacman? ...
+			getWorld().delete(data.ID);
 		}
 	}
 }
