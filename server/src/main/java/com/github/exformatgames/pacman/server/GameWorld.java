@@ -29,7 +29,6 @@ public class GameWorld {
 
     private final Map<Integer, Integer> entityIDMap = new HashMap<>();
     private final Map<Integer, EntityData> entityMap = new HashMap<>();
-    private final Map<Integer, EntityData> foodMap = new HashMap<>();
     private final ArrayList<Integer> playerIDList = new ArrayList<>();
 	private final Queue<Runnable> commandQueue = new ConcurrentLinkedQueue<>();
 
@@ -59,25 +58,7 @@ public class GameWorld {
 
         EntityBuilder.artemisWorld = world;
 
-        for (int x = 0; x < field.getMap().length; x++) {
-            for (int y = 0; y < field.getMap()[x].length; y++) {
-                if (field.getMap()[x][y] == null) {
-                    EntityData entityData = new EntityData();
-
-                    entityData.type = EntityType.FOOD;
-                    entityData.position = new PositionData();
-                    entityData.position.x = x;
-                    entityData.position.y = y;
-
-                    int ID = foodEB.build(entityData);
-                    entityData.ID = ID;
-
-                    //entityMap.put(ID, entityData);
-                    //foodMap.put(ID, entityData);
-                    field.getMap()[x][y] = entityData;
-                }
-            }
-        }
+        initFood();
     }
 
 	public void update (float dT) {
@@ -110,6 +91,26 @@ public class GameWorld {
 
     public void addCommand (Runnable runnable) {
         commandQueue.add(runnable);
+    }
+
+    private void initFood() {
+        for (int x = 0; x < field.getMap().length; x++) {
+            for (int y = 0; y < field.getMap()[x].length; y++) {
+                if (field.getMap()[x][y] == null) {
+                    EntityData entityData = new EntityData();
+
+                    entityData.type = EntityType.FOOD;
+                    entityData.position = new PositionData();
+                    entityData.position.x = x;
+                    entityData.position.y = y;
+
+                    int ID = foodEB.build(entityData);
+                    entityData.ID = ID;
+
+                    field.getMap()[x][y] = entityData;
+                }
+            }
+        }
     }
 
 
