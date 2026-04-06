@@ -31,6 +31,10 @@ public class DirectionSystem extends IteratingSystem {
 
 	@Override
 	protected void process (int entityID) {
+        if (moveMapper.has(entityID)) {
+            return;
+        }
+
 		PositionComponent position = positionMapper.get(entityID);
 		DirectionComponent directionComponent = directionMapper.get(entityID);
 
@@ -155,7 +159,6 @@ public class DirectionSystem extends IteratingSystem {
 		return Direction.NONE;
 	}
 
-    //TODO при активном спаме интпута, пускает в стену..
 	private boolean canMove (PositionComponent positionComponent, Direction dir) {
 		int x = positionComponent.x;
 		int y = positionComponent.y;
@@ -164,10 +167,22 @@ public class DirectionSystem extends IteratingSystem {
         int targetY = y;
 
         switch (dir) {
-            case UP : targetY++; break;
-            case DOWN : targetY--; break;
-            case LEFT : targetX--; break;
-            case RIGHT : targetX++; break;
+            case UP :  {
+                targetY++;
+                break;
+            }
+            case DOWN : {
+                targetY--;
+                break;
+            }
+            case LEFT : {
+                targetX--;
+                break;
+            }
+            case RIGHT : {
+                targetX++;
+                break;
+            }
         }
 
 		if (targetX > 0 && targetX < field.getMap().length && targetY > 0 && targetY < field.getMap()[0].length) {
@@ -181,8 +196,6 @@ public class DirectionSystem extends IteratingSystem {
 
             if (entityData.type == EntityType.PACMAN) return false;
         }
-
-
 
 		return false;
 	}
