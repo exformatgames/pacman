@@ -31,6 +31,10 @@ public class DirectionSystem extends IteratingSystem {
 
 	@Override
 	protected void process (int entityID) {
+        if (moveMapper.has(entityID)) {
+            return;
+        }
+
 		PositionComponent position = positionMapper.get(entityID);
 		DirectionComponent directionComponent = directionMapper.get(entityID);
 
@@ -155,39 +159,43 @@ public class DirectionSystem extends IteratingSystem {
 		return Direction.NONE;
 	}
 
-    //TODO при активном спаме интпута, пускает в стену..
 	private boolean canMove (PositionComponent positionComponent, Direction dir) {
 		int x = positionComponent.x;
 		int y = positionComponent.y;
 
-		EntityData upCell = null;
-		EntityData downCell = null;
-		EntityData rightCell = null;
-		EntityData leftCell = null;
+        int targetX = x;
+        int targetY = y;
 
-		if (field.getMap()[x].length > y + 1) {
-			upCell = field.getMap()[positionComponent.x][positionComponent.y + 1];
-		}
-		if (y - 1 >= 0) {
-			downCell = field.getMap()[positionComponent.x][positionComponent.y - 1];
-		}
-		if (field.getMap().length > x + 1) {
-			rightCell = field.getMap()[positionComponent.x + 1][positionComponent.y];
-		}
-		if (x - 1 >= 0) {
-			leftCell = field.getMap()[positionComponent.x - 1][positionComponent.y];
-		}
+        switch (dir) {
+            case UP :  {
+                targetY++;
+                break;
+            }
+            case DOWN : {
+                targetY--;
+                break;
+            }
+            case LEFT : {
+                targetX--;
+                break;
+            }
+            case RIGHT : {
+                targetX++;
+                break;
+            }
+        }
 
-		switch (dir) {
-			case UP:
-				return upCell == null || upCell.type != EntityType.WALL;
-			case DOWN:
-				return downCell == null || downCell.type != EntityType.WALL;
-			case LEFT:
-				return leftCell == null || leftCell.type != EntityType.WALL;
-			case RIGHT:
-				return rightCell == null || rightCell.type != EntityType.WALL;
-		}
+		if (targetX > 0 && targetX < field.getMap().length && targetY > 0 && targetY < field.getMap()[0].length) {
+            EntityData entityData = field.getMap()[targetX][targetY];
+
+            if (entityData == null) return true;
+
+            if (entityData.type == EntityType.FOOD) return true;
+
+            if (entityData.type == EntityType.WALL) return false;
+
+            if (entityData.type == EntityType.PACMAN) return false;
+        }
 
 		return false;
 	}
