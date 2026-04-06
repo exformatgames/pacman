@@ -8,7 +8,8 @@ public class PacmanSpawnPoint {
 
 	public static PositionData get (MapData data) {
 		double random = Math.random();
-        random *= 4;
+        //TODO arrr.... fixed create new player in x0 y0
+        random *= 3;
         int point = Math.toIntExact(Math.round(random));
         switch (point) {
 			case 0 : {
